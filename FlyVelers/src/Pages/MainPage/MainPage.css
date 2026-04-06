@@ -1,0 +1,210 @@
+/* ================= CSS ================= */
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* HERO */
+.hero {
+  height: 65vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5));
+}
+
+.hero-overlay {
+  position: relative;
+  text-align: center;
+  color: white;
+  max-width: 700px;
+}
+
+.hero-subtitle {
+  font-size: 3rem;
+  color: #f4b942;
+  font-family: 'Brush Script MT', cursive;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.hero-description {
+  margin: 25px auto;
+  background: rgba(255,255,255,0.9);
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  color: #333;
+  width: fit-content;
+}
+
+.explore-btn {
+  background: #111;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* DESTINATIONS */
+/* CONTENEDOR DEL BUSCADOR */
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+/* INPUT */
+.search-input {
+  width: 400px;
+  max-width: 90%;
+  padding: 12px 20px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  text-align: center;
+  margin: 15px;
+}
+
+/* Placeholder */
+.search-input::placeholder {
+  color: #999;
+}
+
+/* BOTÓN (ajuste leve) */
+.explore-btn {
+  background: #111;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.explore-btn:hover {
+  background: #333;
+}
+
+.destinations {
+  background: #f7f7f7;
+  padding: 70px 80px;
+}
+
+.destinations-header h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.destinations-header p {
+  max-width: 600px;
+  font-size: 0.9rem;
+  color: #169de0;
+  margin-bottom: 40px;
+}
+
+.cards {
+  display: flex;
+  gap: 25px;
+}
+
+.card {
+  flex: 1;
+  height: 320px;
+  border-radius: 15px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+}
+
+.card-overlay.purple {
+  background: linear-gradient(to bottom, rgba(128,0,128,0.3), rgba(0,0,0,0.7));
+}
+
+.card-overlay.dark {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.8));
+}
+
+.card h3 {
+  position: relative;
+  color: white;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+/* CTA */
+.cta {
+  background: linear-gradient(to right, #f2f2f2, #bfe3df);
+  padding: 60px 80px;
+}
+
+.cta-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cta-text h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.cta-text p {
+  font-size: 0.95rem;
+  color: #444;
+  max-width: 450px;
+}
+
+.cta-image img {
+  width: 100%;
+  max-width: 450px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .cards {
+    flex-direction: column;
+  }
+
+  .cta-content {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+}
