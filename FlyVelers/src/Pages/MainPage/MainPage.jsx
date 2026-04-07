@@ -7,6 +7,8 @@ import peru from '../../assets/peru.png';
 import guatemala from '../../assets/guatemala.png';
 import chile from '../../assets/chile.png';
 import phone from '../../assets/celular-logo.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSistrix } from '@fortawesome/free-brands-svg-icons'
 
 const MainPage = () => {
   return (
@@ -24,11 +26,11 @@ const MainPage = () => {
             <input
               type="text"
               className="search-input"
-              placeholder="Elevate your journey above the expected"
+              placeholder="Elevate your journey above the expected, exploring the world's finest destinations with the seamless grace of FlyVelers."
             />
           </div>
 
-          <button className="explore-btn">Explore 🔍</button>
+          <button className="explore-btn">Explore <FontAwesomeIcon icon={faSistrix} style={{marginLeft: "10px"}} /> </button>
         </div>
       </section>
 
@@ -43,17 +45,17 @@ const MainPage = () => {
         <div className="cards">
           <div className="card" style={{ backgroundImage: `url(${peru})` }}>
             <div className="card-overlay" />
-            <h3>PERU</h3>
+            <h3 className='Peru-tittle'>PERU</h3>
           </div>
 
           <div className="card" style={{ backgroundImage: `url(${guatemala})` }}>
             <div className="card-overlay purple" />
-            <h3>GUATEMALA</h3>
+            <h3 className='guatemala-tittle'>GUATEMALA</h3>
           </div>
 
           <div className="card" style={{ backgroundImage: `url(${chile})` }}>
             <div className="card-overlay dark" />
-            <h3>CHILE</h3>
+            <h3 className='chile-tittle'>CHILE</h3>
           </div>
         </div>
       </section>

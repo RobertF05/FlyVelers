@@ -35,7 +35,7 @@ body {
   color: white;
   max-width: 700px;
 }
-
+  
 .hero-subtitle {
   font-size: 3rem;
   color: #f4b942;
@@ -65,6 +65,8 @@ body {
   padding: 10px 25px;
   border-radius: 8px;
   cursor: pointer;
+  gap: 10px;
+  width: 18%;
 }
 
 /* DESTINATIONS */
@@ -75,12 +77,13 @@ body {
   justify-content: center;
   gap: 10px;
   margin-top: 25px;
+  width: 850px;
+  transform: translateX(-75px);
 }
 
 /* INPUT */
 .search-input {
-  width: 400px;
-  max-width: 90%;
+  width: 900px;
   padding: 12px 20px;
   border-radius: 30px;
   border: none;
@@ -151,6 +154,7 @@ body {
   position: absolute;
   inset: 0;
   background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+  filter: brightness(1.5) contrast(0.8);
 }
 
 .card-overlay.purple {
@@ -162,12 +166,24 @@ body {
 }
 
 .card h3 {
-  position: relative;
+  position: absolute;
+  left: 20px;
   color: white;
-  font-size: 1.8rem;
+  font-size: 3rem;
   font-weight: bold;
 }
-
+.chile-tittle{
+  right: 35%;
+  transform: translateX(50%);
+}
+.guatemala-tittle{
+  right: 70%;
+  transform: translateX(50%);
+}
+.Peru-tittle{
+  right: 35%;
+  transform: translateX(50%);
+}
 /* CTA */
 .cta {
   background: linear-gradient(to right, #f2f2f2, #bfe3df);
