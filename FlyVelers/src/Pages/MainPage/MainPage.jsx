@@ -7,6 +7,9 @@ import peru from '../../assets/peru.png';
 import guatemala from '../../assets/guatemala.png';
 import chile from '../../assets/chile.png';
 import phone from '../../assets/celular-logo.png';
+import FondoPeru from '../../assets/fondo peru.jpg'
+import FondoChile from '../../assets/fondo chile.jpg'
+import FondoGuatemala from '../../assets/fondo guatemala.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSistrix } from '@fortawesome/free-brands-svg-icons'
 
@@ -19,8 +22,11 @@ const MainPage = () => {
         style={{ backgroundImage: `url(${maldivas})` }}
       >
         <div className="hero-overlay">
-          <h2 className="hero-subtitle">Find your Way,</h2>
-          <h1 className="hero-title">Love Your Stay</h1>
+
+          <div className="hero-texts">
+            <h2 className="hero-subtitle">Find your Way,</h2>
+            <h1 className="hero-title">Love Your Stay</h1>
+          </div>
 
           <div className="search-container">
             <input
@@ -43,17 +49,18 @@ const MainPage = () => {
         </div>
 
         <div className="cards">
-          <div className="card" style={{ backgroundImage: `url(${peru})` }}>
+
+          <div className="card" style={{ backgroundImage: `url(${peru}),url(${FondoPeru})` }}>
             <div className="card-overlay" />
             <h3 className='Peru-tittle'>PERU</h3>
           </div>
 
-          <div className="card" style={{ backgroundImage: `url(${guatemala})` }}>
+          <div className="card" style={{ backgroundImage: `url(${guatemala}), url(${FondoGuatemala})` }}>
             <div className="card-overlay purple" />
             <h3 className='guatemala-tittle'>GUATEMALA</h3>
           </div>
 
-          <div className="card" style={{ backgroundImage: `url(${chile})` }}>
+          <div className="card" style={{ backgroundImage: `url(${chile}) , url(${FondoChile})` }}>
             <div className="card-overlay dark" />
             <h3 className='chile-tittle'>CHILE</h3>
           </div>
