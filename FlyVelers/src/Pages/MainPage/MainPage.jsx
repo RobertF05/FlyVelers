@@ -1,5 +1,6 @@
 import React from 'react';
 import './MainPage.css';
+import Navbar from '../../components/navbar.jsx';
 
 // Images
 import maldivas from '../../assets/maldivas.png';
@@ -22,6 +23,8 @@ const MainPage = () => {
         className="hero"
         style={{ backgroundImage: `url(${maldivas})` }}
       >
+        <Navbar />
+
         <div className="hero-overlay">
 
           <div className="hero-texts">

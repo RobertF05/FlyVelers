@@ -36,9 +36,11 @@ body {
 
 .hero-overlay {
   position: relative;
+  z-index: 2;
   text-align: center;
   color: white;
   max-width: 700px;
+  padding-top: 64px;
 }
   
 .hero-texts {
@@ -241,6 +243,10 @@ body {
 @media (max-width: 768px) {
   .hero {
     min-height: 80vh;
+  }
+
+  .hero-overlay {
+    padding-top: 24px;
   }
 
   .hero-subtitle,
