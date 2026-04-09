@@ -41,8 +41,9 @@ const MainPage = () => {
           </div>
 
           <button className="explore-btn">Explore <FontAwesomeIcon icon={faSistrix} style={{marginLeft: "10px"}} /> </button>
-          <img className='divider'src={divider}></img>
         </div>
+
+        <img className="divider" src={divider} alt="" aria-hidden="true" />
       </section>
 
       <section className="destinations">

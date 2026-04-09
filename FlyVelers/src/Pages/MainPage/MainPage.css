@@ -13,13 +13,15 @@ body {
 
 /* HERO */
 .hero {
-  height: 65vh;
+  min-height: 74vh;
+  height: 74vh;
   background-size: cover;
   background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
 }
 
 .hero::before {
@@ -41,6 +43,7 @@ body {
   color: white;
   max-width: 700px;
   padding-top: 64px;
+  padding-bottom: 88px;
 }
   
 .hero-texts {
@@ -89,10 +92,13 @@ body {
 /*divider*/
 .divider{
   position: absolute;
-  right: -58%;
-  bottom: -80px;
-  height: 80px;
-  
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 86px;
+  object-fit: cover;
+  object-position: center bottom;
 }
 
 /* DESTINATIONS */
