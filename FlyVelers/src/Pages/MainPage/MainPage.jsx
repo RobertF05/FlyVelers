@@ -10,6 +10,7 @@ import phone from '../../assets/celular-logo.png';
 import FondoPeru from '../../assets/fondo peru.jpg'
 import FondoChile from '../../assets/fondo chile.jpg'
 import FondoGuatemala from '../../assets/fondo guatemala.jpg'
+import divider from '../../assets/bottom-shape.webp.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSistrix } from '@fortawesome/free-brands-svg-icons'
 
@@ -37,6 +38,7 @@ const MainPage = () => {
           </div>
 
           <button className="explore-btn">Explore <FontAwesomeIcon icon={faSistrix} style={{marginLeft: "10px"}} /> </button>
+          <img className='divider'src={divider}></img>
         </div>
       </section>
 

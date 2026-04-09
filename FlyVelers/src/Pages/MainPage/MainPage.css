@@ -84,6 +84,14 @@ body {
   gap: 10px;
   width: 18%;
 }
+/*divider*/
+.divider{
+  position: absolute;
+  right: -58%;
+  bottom: -80px;
+  height: 80px;
+  
+}
 
 /* DESTINATIONS */
 /* CONTENEDOR DEL BUSCADOR */
@@ -230,14 +238,36 @@ body {
 }
 
 /* RESPONSIVE */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
+  .hero {
+    min-height: 80vh;
+  }
+
+  .hero-subtitle,
+  .hero-title {
+    text-align: center;
+  }
+
+  .search-container {
+    flex-direction: column;
+  }
+
   .cards {
     flex-direction: column;
   }
 
   .cta-content {
     flex-direction: column;
-    gap: 20px;
     text-align: center;
+  }
+}
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
