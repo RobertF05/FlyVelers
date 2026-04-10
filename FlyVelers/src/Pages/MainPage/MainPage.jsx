@@ -37,6 +37,8 @@ const MainPage = () => {
               type="text"
               className="search-input"
               placeholder="Elevate your journey above the expected, exploring the world's finest destinations with the seamless grace of FlyVelers."
+               disabled
+               onChange={() => {}}
             />
           </div>
 
