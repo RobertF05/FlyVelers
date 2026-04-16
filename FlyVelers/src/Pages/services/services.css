@@ -1,0 +1,140 @@
+.services-container {
+  width: 100%;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.services-hero {
+  height: 500px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.hero-overlay {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 120px 60px 0 60px;
+}
+
+.hero-texts {
+  color: white;
+  text-align: right;
+}
+
+.hero-subtitle {
+  font-size: 32px;
+  font-style: italic;
+  margin: 0;
+}
+
+.hero-title {
+  font-size: 50px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.services-section {
+  background: linear-gradient(to bottom, #111 0%, #444 40%, #eee 100%);
+  padding: 150px 20px;
+  min-height: 1200px; 
+}
+
+.cards-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 100px;
+  margin-top: -120px; 
+  padding-bottom: 100px;
+}
+
+.service-card {
+  width: 320px;
+  background: #f5f5f5;
+  border-radius: 20px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-10px) scale(1.02);
+}
+
+.service-card:nth-child(1) {
+  align-self: flex-start;
+  margin-left: 10%;
+}
+
+.service-card:nth-child(2) {
+  align-self: center;
+}
+
+.service-card:nth-child(3) {
+  align-self: flex-end;
+  margin-right: 10%;
+}
+
+.icon {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+.blue {
+  background: #4da6ff;
+}
+
+.green {
+  background: #00c896;
+}
+
+.yellow {
+  background: #ffc107;
+}
+
+.duration {
+  font-size: 12px;
+  color: gray;
+}
+
+.per {
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+ul {
+  text-align: left;
+  padding-left: 18px;
+}
+
+li {
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+@media (max-width: 900px) {
+  .hero-overlay {
+    justify-content: center;
+    text-align: center;
+    padding: 120px 20px 0 20px;
+  }
+
+  .hero-texts {
+    text-align: center;
+  }
+
+  /* Cards centradas en móvil */
+  .service-card:nth-child(1),
+  .service-card:nth-child(2),
+  .service-card:nth-child(3) {
+    align-self: center;
+    margin: 0;
+  }
+}

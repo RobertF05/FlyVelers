@@ -4,7 +4,7 @@ import logo from '../assets/flyvelers-logo.png';
 const navItems = [
   { label: 'Home', href: '/main' },
   { label: 'About Us', href: '/about' },
-  { label: 'Services', href: '#services' },
+  { label: 'Services', href: '/services' },
   { label: 'Partners', href: '#partners' },
   { label: 'Travel Routes', href: '#routes' },
   { label: 'Discounts', href: '#discounts' },
