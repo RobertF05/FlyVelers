@@ -26,7 +26,6 @@ const MainPage = () => {
         <Navbar />
 
         <div className="hero-overlay">
-
           <div className="hero-texts">
             <h2 className="hero-subtitle">Find your Way,</h2>
             <h1 className="hero-title">Love Your Stay</h1>
