@@ -1,10 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 .services-container {
   width: 100%;
   font-family: "Segoe UI", sans-serif;
 }
 
 .services-hero {
-  height: 500px;
+  height: 600px;
   background-size: cover;
   background-position: center;
   position: relative;
@@ -16,24 +17,31 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 120px 60px 0 60px;
+  padding: 120px 30px 0 60px;
+  margin-left: 700px;
+  
 }
 
 .hero-texts {
   color: white;
   text-align: right;
+  max-width: 500px;
+  margin-top: 480px;
 }
 
 .hero-subtitle {
-  font-size: 32px;
+  font-size: 60px;
   font-style: italic;
   margin: 0;
+  margin-left: 2rem;
+  color: #8dfdff;
 }
 
 .hero-title {
-  font-size: 50px;
+  font-size: 60px;
   font-weight: bold;
   margin: 0;
+  
 }
 
 .services-section {
@@ -41,14 +49,36 @@
   padding: 150px 20px;
   min-height: 1200px; 
 }
+/* .bg-shape1{
+ position: absolute;
+  width: 100%;
+  height: 700px;
+  background: #000;
+  top: 200px;
+  left: 0;
+}
+.bg-shape2{
+  position: absolute;
+  width: 50%;
+  height: 700px;
+  background: #000;
 
+  bottom: -350px;
+  left: 0;
+} */
+
+.tittle{
+  font-weight: 350;
+}
 .cards-wrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 100px;
   margin-top: -120px; 
   padding-bottom: 100px;
+  z-index: 2;
 }
 
 .service-card {
@@ -59,6 +89,10 @@
   text-align: center;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   transition: all 0.3s ease;
+  margin-bottom: 100px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.5);
+  height: 660px;
+  transform: translateY(-100px);
 }
 
 .service-card:hover {
@@ -79,14 +113,6 @@
   margin-right: 10%;
 }
 
-.icon {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  margin: auto;
-  margin-bottom: 10px;
-}
-
 .blue {
   background: #4da6ff;
 }
@@ -99,7 +125,7 @@
   background: #ffc107;
 }
 
-.duration {
+.monthly {
   font-size: 12px;
   color: gray;
 }
@@ -107,16 +133,105 @@
 .per {
   font-size: 12px;
   margin-bottom: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 550;
 }
 
 ul {
+
   text-align: left;
   padding-left: 18px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300px;
 }
 
 li {
+
   font-size: 13px;
   margin-bottom: 6px;
+}
+.separador {
+  width: 100%;
+  height: 1px;
+  background-color: #e5e7eb; /* gris suave */
+  margin: 20px 0;
+}
+.SerInclude{
+  font-weight:  600;
+  color: #000;
+  letter-spacing: 0.5px;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 10px;
+  text-align: start;
+  font-size: 14px;
+}
+/*icono*/
+/* fondo verde menta */
+.fondo-icon {
+  background: #adf2d27a; 
+  padding: 15px;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 15px;
+}
+
+/* fondo azul del icono */
+.icon-bg {
+  background: #6a3cdd;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* icono blanco */
+.icon-check {
+  color: white;
+  font-size: 18px;
+}
+.fondo-icon-standard {
+  background: #adf2d27a;
+  padding: 15px;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 15px;
+}
+
+/* fondo azul del icono */
+.icon-bg-standard {
+  background: #2dc09b;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.fondo-icon-premiun {
+  background: #adf2d27a; 
+  padding: 15px;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 15px;
+}
+
+/* fondo azul del icono */
+.icon-bg-premiun {
+  background: #dcdc33;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (max-width: 900px) {

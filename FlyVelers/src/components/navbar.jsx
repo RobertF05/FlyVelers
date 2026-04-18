@@ -10,10 +10,11 @@ const navItems = [
   { label: 'Discounts', href: '#discounts' },
   { label: 'Blog', href: '#blog' },
   { label: 'Contact Us', href: '/contact' },
-  { label: 'Reviews', href: '#reviews', highlighted: true },
+  { label: 'Reviews', href: '/reviews'},
 ];
 
 function Navbar({ activeLabel }) {
+  const currentPath = window.location.pathname;
   return (
     <header className="main-navbar">
       <a className="brand" href="/main" aria-label="FlyVelers home">
@@ -26,7 +27,7 @@ function Navbar({ activeLabel }) {
           <a
             key={item.label}
             className={
-              item.label === activeLabel || (!activeLabel && item.highlighted)
+              item.href === currentPath 
                 ? 'navbar-link highlighted'
                 : 'navbar-link'
             }
