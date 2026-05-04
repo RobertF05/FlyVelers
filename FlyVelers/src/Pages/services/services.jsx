@@ -43,7 +43,7 @@ const Services = () => {
             <p className="SerInclude">Services Include:</p>
             <ul>
               <li>Round-trip economy airfare (regional destinatios) </li>
-              <li>3–4 star hotel accommodation</li>
+              <li>3-4 star hotel accommodation</li>
               <li>Airport transfers (shuttle or shared transport)</li>
               <li>Basic insurance (medical + luggage covarage)</li>
               <li>one guided city tour or excursion</li>
