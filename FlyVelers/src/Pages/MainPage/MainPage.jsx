@@ -1,6 +1,7 @@
 import React from 'react';
 import './MainPage.css';
 import Navbar from '../../components/navbar.jsx';
+import Footer from '../../components/footer.jsx';
 
 // Images
 import maldivas from '../../assets/maldivas.png';
@@ -88,8 +89,9 @@ const MainPage = () => {
           </div>
         </div>
       </section>
-
+      <Footer/>
     </div>
+   
   );
 };
 

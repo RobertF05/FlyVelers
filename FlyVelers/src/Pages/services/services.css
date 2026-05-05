@@ -24,7 +24,7 @@
   color: white;
   text-align: right;
   max-width: 500px;
-  margin-top: 480px;
+  margin-top: 250px;
 }
 
 .services-hero .hero-subtitle {
@@ -43,7 +43,7 @@
 .services-section {
   background: linear-gradient(to bottom, #111 0%, #444 40%, #eee 100%);
   padding: 150px 20px;
-  min-height: 1200px; 
+  min-height: auto; 
 }
 /* .bg-shape1{
  position: absolute;
@@ -69,12 +69,14 @@
 .cards-wrapper {
   position: relative;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 100px;
-  margin-top: -120px; 
+  flex-direction: row; 
+  justify-content: center; 
+  align-items: stretch;
+  gap: 40px; 
+  margin-top: -120px;
   padding-bottom: 100px;
   z-index: 2;
+  flex-wrap: wrap; 
 }
 
 .service-card {
@@ -85,7 +87,7 @@
   text-align: center;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   transition: all 0.3s ease;
-  margin-bottom: 100px;
+  margin-bottom: 0px;
   box-shadow: 0 0 20px rgba(255,255,255,0.5);
   height: 660px;
   transform: translateY(-100px);
@@ -95,19 +97,6 @@
   transform: translateY(-10px) scale(1.02);
 }
 
-.service-card:nth-child(1) {
-  align-self: flex-start;
-  margin-left: 10%;
-}
-
-.service-card:nth-child(2) {
-  align-self: center;
-}
-
-.service-card:nth-child(3) {
-  align-self: flex-end;
-  margin-right: 10%;
-}
 
 .blue {
   background: #4da6ff;

@@ -7,6 +7,7 @@ import divider from '../../assets/bottom-shape.webp.png';
 import villaGinaVarenna from '../../assets/villa-gina-varenna.png';
 import globos from '../../assets/Globos.png';
 import haLongBay from '../../assets/Ha-long-bay.png';
+import Footer from '../../components/footer.jsx';
 
 const sections = [
   {
@@ -74,6 +75,7 @@ const AboutUsPage = () => {
           </button>
         </div>
       </section>
+      <Footer/>
     </div>
   );
 };

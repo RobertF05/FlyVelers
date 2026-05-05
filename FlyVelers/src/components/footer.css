@@ -1,0 +1,119 @@
+.footer {
+  background: linear-gradient(to right, #1c1c1c, #121212);
+  color: #ccc;
+  padding: 60px 80px 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+}
+
+/* Título */
+.title {
+  grid-column: 1;
+  color: #fff;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+/* Texto */
+.text {
+  grid-column: 1;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #aaa;
+}
+
+/* Columnas */
+.company {
+  grid-column: 2;
+}
+
+.explore {
+  grid-column: 3;
+}
+
+.contact {
+  grid-column: 4;
+}
+
+/* Listas */
+.company ul,
+.explore ul {
+  list-style: none;
+  padding: 0;
+}
+
+.company li,
+.explore li {
+  margin-bottom: 10px;
+}
+
+.company a,
+.explore a {
+  text-decoration: none;
+  color: #ccc;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.company a:hover,
+.explore a:hover {
+  color: #fff;
+}
+
+/* Títulos simulados */
+.company::before {
+  content: "Company";
+  display: block;
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.explore::before {
+  content: "Explore";
+  display: block;
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.contact::before {
+  content: "Contact";
+  display: block;
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* Contacto */
+.contact p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.contact svg {
+  width: 16px;
+  height: 16px;
+  fill: #facc15;
+}
+
+/* Línea */
+.separator {
+  grid-column: 1 / -1;
+  height: 1px;
+  background: #2a2a2a;
+  margin: 30px 0 10px;
+}
+
+/* Footer bottom */
+.footer > p:last-child {
+  grid-column: 1 / -1;
+  font-size: 13px;
+  color: #888;
+}

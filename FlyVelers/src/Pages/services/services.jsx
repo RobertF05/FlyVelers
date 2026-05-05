@@ -1,6 +1,7 @@
 import React from "react";
 import "./services.css";
 import Navbar from "../../components/navbar.jsx";
+import Footer from '../../components/footer.jsx';
 import auroras from "../../assets/auroras.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
@@ -101,6 +102,7 @@ const Services = () => {
             <div className="bg-shape2"></div>
         </div>
       </section>
+      <Footer/>
     </div>
   );
 };
