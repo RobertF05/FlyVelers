@@ -1,5 +1,5 @@
 .main-navbar {
-  position: absolute;
+  position: fixed;
   top: 16px;
   left: 42px;
   right: 42px;
@@ -12,8 +12,8 @@
   border-radius: 10px;
   background: linear-gradient(180deg, rgba(233, 239, 244, 0.42), rgba(224, 232, 237, 0.28));
   border: 1px solid rgba(255, 255, 255, 0.22);
-  box-shadow: 0 8px 22px rgba(19, 34, 49, 0.1);
-  backdrop-filter: blur(10px);
+  box-shadow: 0 14px 34px rgba(19, 34, 49, 0.16);
+  backdrop-filter: blur(14px);
   box-sizing: border-box;
 }
 
@@ -98,10 +98,8 @@
 
 @media (max-width: 820px) {
   .main-navbar {
-    position: static;
-    margin: 14px 14px 0;
-    left: auto;
-    right: auto;
+    left: 14px;
+    right: 14px;
     height: auto;
     flex-direction: column;
     align-items: flex-start;
@@ -118,6 +116,7 @@
 
 @media (max-width: 520px) {
   .main-navbar {
+    top: 10px;
     padding: 10px 14px;
   }
 

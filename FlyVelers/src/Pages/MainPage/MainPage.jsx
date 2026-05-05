@@ -1,22 +1,80 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './MainPage.css';
 import Navbar from '../../components/navbar.jsx';
 import Footer from '../../components/footer.jsx';
 
 // Images
 import maldivas from '../../assets/maldivas.png';
+import phone from '../../assets/celular-logo.png';
 import peru from '../../assets/peru.png';
 import guatemala from '../../assets/guatemala.png';
 import chile from '../../assets/chile.png';
-import phone from '../../assets/celular-logo.png';
-import FondoPeru from '../../assets/fondo peru.jpg'
-import FondoChile from '../../assets/fondo chile.jpg'
-import FondoGuatemala from '../../assets/fondo guatemala.jpg'
+import netherlands from '../../assets/netherlands.jpg';
+import hongkong from '../../assets/hongkong.jpg';
+import singapore from '../../assets/singapore.jpg';
 import divider from '../../assets/bottom-shape.webp.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { faSistrix } from '@fortawesome/free-brands-svg-icons'
 
 const MainPage = () => {
+  const attractions = [
+    {
+      title: 'PERU',
+      image: peru,
+      tag: 'Sacred Landscapes',
+      description: 'Ancient routes, dramatic peaks and immersive culture around every turn.',
+    },
+    {
+      title: 'GUATEMALA',
+      image: guatemala,
+      tag: 'Colonial Energy',
+      description: 'Colorful plazas, artisan traditions and architecture with deep local identity.',
+    },
+    {
+      title: 'CHILE',
+      image: chile,
+      tag: 'Southern Horizons',
+      description: 'Patagonian lakes, powerful mountain ranges and cinematic natural scenery.',
+    },
+    {
+      title: 'NETHERLANDS',
+      image: netherlands,
+      tag: 'Canal Escapes',
+      description: 'Refined city life, timeless streets and quiet waterways with European charm.',
+    },
+    {
+      title: 'HONG KONG',
+      image: hongkong,
+      tag: 'Skyline Motion',
+      description: 'Dense urban rhythm, harbor lights and world-class food in a vertical city.',
+    },
+    {
+      title: 'SINGAPORE',
+      image: singapore,
+      tag: 'Future Nature',
+      description: 'Gardens, waterfront architecture and a polished mix of modern Asian luxury.',
+    },
+  ];
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % attractions.length);
+    }, 3500);
+
+    return () => window.clearInterval(intervalId);
+  }, [attractions.length]);
+
+  const goToPreviousSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + attractions.length) % attractions.length);
+  };
+
+  const goToNextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % attractions.length);
+  };
+
   return (
     <div className="main-container">
 
@@ -56,22 +114,71 @@ const MainPage = () => {
           </p>
         </div>
 
-        <div className="cards">
+        <div className="attractions-carousel">
+          <button
+            type="button"
+            className="carousel-arrow left"
+            onClick={goToPreviousSlide}
+            aria-label="Previous attraction"
+          >
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </button>
 
-          <div className="card" style={{ backgroundImage: `url(${peru}),url(${FondoPeru})` }}>
-            <div className="card-overlay" />
-            <h3 className='Peru-tittle'>PERU</h3>
+          <div className="carousel-viewport">
+            <div
+              className="carousel-track"
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            >
+              {attractions.map((attraction) => (
+                <article
+                  key={attraction.title}
+                  className="carousel-card"
+                  style={{ backgroundImage: `url(${attraction.image})` }}
+                >
+                  <div className="card-overlay" />
+                  <div className="carousel-card-top">
+                    <span className="carousel-tag">{attraction.tag}</span>
+                    <span className="carousel-count">
+                      {String(currentSlide + 1).padStart(2, '0')} / {String(attractions.length).padStart(2, '0')}
+                    </span>
+                  </div>
+
+                  <h3>{attraction.title}</h3>
+
+                  <div className="carousel-card-bottom">
+                    <p>{attraction.description}</p>
+                    <div className="carousel-progress" aria-hidden="true">
+                      <span
+                        className="carousel-progress-bar"
+                        style={{ width: `${((currentSlide + 1) / attractions.length) * 100}%` }}
+                      />
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
 
-          <div className="card" style={{ backgroundImage: `url(${guatemala}), url(${FondoGuatemala})` }}>
-            <div className="card-overlay purple" />
-            <h3 className='guatemala-tittle'>GUATEMALA</h3>
-          </div>
+          <button
+            type="button"
+            className="carousel-arrow right"
+            onClick={goToNextSlide}
+            aria-label="Next attraction"
+          >
+            <FontAwesomeIcon icon={faChevronRight} />
+          </button>
+        </div>
 
-          <div className="card" style={{ backgroundImage: `url(${chile}) , url(${FondoChile})` }}>
-            <div className="card-overlay dark" />
-            <h3 className='chile-tittle'>CHILE</h3>
-          </div>
+        <div className="carousel-dots" aria-label="Carousel navigation">
+          {attractions.map((attraction, index) => (
+            <button
+              key={attraction.title}
+              type="button"
+              className={`carousel-dot ${index === currentSlide ? 'active' : ''}`}
+              onClick={() => setCurrentSlide(index)}
+              aria-label={`Show ${attraction.title}`}
+            />
+          ))}
         </div>
       </section>
 
