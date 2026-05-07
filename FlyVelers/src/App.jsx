@@ -5,6 +5,7 @@ import ContactUsPage from './Pages/ContactUsPage/ContactUsPage.jsx';
 import Services from './Pages/services/services.jsx';
 import Partners from './Pages/Partners/Partners.jsx';
 import Login from './components/login.jsx'
+import Reviews from './Pages/Reviews/Reviews.jsx';
 
 import './App.css';
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/contact" element={<ContactUsPage />} />
         <Route path="/services" element={<Services />} />
         <Route path="/partners" element={<Partners />} />
+        <Route path="/reviews" element={<Reviews />} />
         
         {/* ruta temporal */}
         <Route path="/login" element={<Login />} />

@@ -10,7 +10,7 @@ const navItems = [
   { label: 'Discounts', href: '#discounts' },
   { label: 'Blog', href: '#blog' },
   { label: 'Contact Us', href: '/contact' },
-  { label: 'Reviews', href: '#reviews'},
+  { label: 'Reviews', href: '/reviews'},
 ];
 
 function Navbar({ activeLabel }) {
