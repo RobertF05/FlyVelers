@@ -4,6 +4,8 @@ import AboutUsPage from './Pages/AboutUsPage/AboutUsPage.jsx';
 import ContactUsPage from './Pages/ContactUsPage/ContactUsPage.jsx';
 import Services from './Pages/services/services.jsx';
 import Partners from './Pages/Partners/Partners.jsx';
+import Login from './components/login.jsx'
+
 import './App.css';
 
 function App() {
@@ -16,6 +18,8 @@ function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/partners" element={<Partners />} />
         
+        {/* ruta temporal */}
+        <Route path="/login" element={<Login />} />
         <Route path="*" element={<Navigate to="/main" />} />
       </Routes>
     </Router>
