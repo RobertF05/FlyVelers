@@ -47,7 +47,7 @@
 .about-content {
   position: relative;
   z-index: 1;
-  margin-top: -12px;
+  margin-top: -430px;
   padding: 0 28px 88px;
   background: transparent;
 }
@@ -55,7 +55,7 @@
 .about-content-inner {
   width: min(100%, 1140px);
   margin: 0 auto;
-  padding-top: 132px;
+  padding-top: 0;
 }
 
 .about-card {
@@ -145,8 +145,12 @@
     padding: 132px 24px 124px;
   }
 
+  .about-content {
+    margin-top: -360px;
+  }
+
   .about-content-inner {
-    padding-top: 122px;
+    padding-top: 0;
   }
 
   .about-card {
@@ -174,13 +178,13 @@
   }
 
   .about-content {
-    margin-top: 0;
+    margin-top: -250px;
     padding: 0 14px 54px;
     background: transparent;
   }
 
   .about-content-inner {
-    padding-top: 118px;
+    padding-top: 0;
   }
 
   .about-card-copy {

@@ -39,22 +39,20 @@ const AboutUsPage = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (!entry.isIntersecting) {
-            return;
-          }
-
           const index = Number(entry.target.dataset.index);
 
-          setVisibleSections((current) => (
-            current.includes(index) ? current : [...current, index]
-          ));
+          setVisibleSections((current) => {
+            if (entry.isIntersecting) {
+              return current.includes(index) ? current : [...current, index];
+            }
 
-          observer.unobserve(entry.target);
+            return current.filter((item) => item !== index);
+          });
         });
       },
       {
-        threshold: 0.25,
-        rootMargin: '0px 0px -10% 0px',
+        threshold: 0.22,
+        rootMargin: '0px 0px -8% 0px',
       },
     );
 
@@ -69,13 +67,13 @@ const AboutUsPage = () => {
 
   return (
     <div className="about-page">
+      <Navbar activeLabel="About Us" />
+
       <div className="about-scroll-stage">
         <section
           className="about-hero"
           style={{ backgroundImage: `url(${heroImage})` }}
         >
-          <Navbar activeLabel="About Us" />
-
           <div className="about-hero-overlay">
             <div className="about-hero-texts" />
           </div>
