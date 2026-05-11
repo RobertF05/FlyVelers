@@ -1,14 +1,21 @@
 .about-page {
-  background: #f8f8f5;
+  background: transparent;
   min-height: 100vh;
 }
 
-.about-hero {
+.about-scroll-stage {
   position: relative;
+  z-index: 1;
+}
+
+.about-hero {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 620px;
+  min-height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -26,64 +33,55 @@
   position: relative;
   z-index: 2;
   width: min(100%, 1120px);
+  min-height: 100vh;
   padding: 136px 40px 140px;
   text-align: center;
 }
 
 .about-hero-texts {
   max-width: 780px;
+  min-height: 1px;
   margin: 0 auto;
-}
-
-.about-hero-subtitle {
-  color: #f1b631;
-  font-family: 'Playball', cursive;
-  font-size: clamp(4.9rem, 9vw, 6.4rem);
-  font-weight: 400;
-  line-height: 0.9;
-}
-
-.about-hero-title {
-  margin-top: 12px;
-  color: #ffffff;
-  font-family: 'Roboto', sans-serif;
-  font-size: clamp(4rem, 8vw, 5.4rem);
-  font-weight: 900;
-  line-height: 0.94;
-}
-
-.about-divider {
-  position: absolute;
-  left: 0;
-  bottom: -1px;
-  z-index: 2;
-  width: 100%;
-  height: 86px;
-  object-fit: cover;
 }
 
 .about-content {
   position: relative;
-  z-index: 3;
-  margin-top: -6px;
-  padding: 0 28px 72px;
+  z-index: 1;
+  margin-top: -12px;
+  padding: 0 28px 88px;
+  background: transparent;
 }
 
 .about-content-inner {
   width: min(100%, 1140px);
   margin: 0 auto;
+  padding-top: 132px;
 }
 
 .about-card {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 218px;
   margin-bottom: 26px;
   overflow: hidden;
-  border: 1px solid #e7e6f2;
+  border: 1px solid rgba(255, 255, 255, 0.34);
   border-radius: 24px;
-  background: #ececfb;
-  box-shadow: 0 8px 22px rgba(66, 76, 120, 0.08);
+  background: rgba(236, 236, 251, 0.12);
+  box-shadow: 0 16px 36px rgba(26, 45, 61, 0.18);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transform: translateY(72px);
+  transition:
+    opacity 0.72s ease,
+    transform 0.72s ease;
+  will-change: opacity, transform;
+}
+
+.about-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .about-card.media-right .about-card-copy {
@@ -99,21 +97,23 @@
   flex-direction: column;
   justify-content: center;
   padding: 34px 42px;
-  background: #ececfb;
+  background: transparent;
 }
 
 .about-card-copy h2 {
   margin-bottom: 10px;
-  color: #313c50;
+  color: #f8fbff;
   font-size: 1.05rem;
   font-weight: 800;
   letter-spacing: 0.01em;
+  text-shadow: 0 2px 10px rgba(19, 36, 49, 0.18);
 }
 
 .about-card-copy p {
-  color: #525c70;
+  color: rgba(247, 250, 253, 0.92);
   font-size: 0.95rem;
   line-height: 1.85;
+  text-shadow: 0 2px 10px rgba(19, 36, 49, 0.16);
 }
 
 .about-card-media {
@@ -136,28 +136,17 @@
   object-fit: cover;
 }
 
-.about-next-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 26px;
-  margin: 10px auto 0;
-  border: 0;
-  border-radius: 999px;
-  background: #242424;
-  color: #ffffff;
-  font-size: 0.95rem;
-  cursor: pointer;
-}
-
 @media (max-width: 960px) {
   .about-hero {
-    min-height: 560px;
+    min-height: 100vh;
   }
 
   .about-hero-overlay {
     padding: 132px 24px 124px;
+  }
+
+  .about-content-inner {
+    padding-top: 122px;
   }
 
   .about-card {
@@ -177,19 +166,21 @@
 
 @media (max-width: 640px) {
   .about-hero {
-    min-height: 470px;
+    min-height: 100vh;
   }
 
   .about-hero-overlay {
     padding: 112px 18px 110px;
   }
 
-  .about-divider {
-    height: 60px;
+  .about-content {
+    margin-top: 0;
+    padding: 0 14px 54px;
+    background: transparent;
   }
 
-  .about-content {
-    padding: 0 14px 54px;
+  .about-content-inner {
+    padding-top: 118px;
   }
 
   .about-card-copy {

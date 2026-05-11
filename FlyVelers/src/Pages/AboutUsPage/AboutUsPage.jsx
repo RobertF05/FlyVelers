@@ -1,9 +1,7 @@
+import { useEffect, useRef, useState } from 'react';
 import './AboutUsPage.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import Navbar from '../../components/navbar.jsx';
 import heroImage from '../../assets/maldivas.png';
-import divider from '../../assets/bottom-shape.webp.png';
 import villaGinaVarenna from '../../assets/villa-gina-varenna.png';
 import globos from '../../assets/Globos.png';
 import haLongBay from '../../assets/Ha-long-bay.png';
@@ -34,48 +32,83 @@ const sections = [
 ];
 
 const AboutUsPage = () => {
+  const [visibleSections, setVisibleSections] = useState([]);
+  const cardRefs = useRef([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          const index = Number(entry.target.dataset.index);
+
+          setVisibleSections((current) => (
+            current.includes(index) ? current : [...current, index]
+          ));
+
+          observer.unobserve(entry.target);
+        });
+      },
+      {
+        threshold: 0.25,
+        rootMargin: '0px 0px -10% 0px',
+      },
+    );
+
+    const refs = cardRefs.current.filter(Boolean);
+    refs.forEach((card) => observer.observe(card));
+
+    return () => {
+      refs.forEach((card) => observer.unobserve(card));
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <div className="about-page">
-      <section
-        className="about-hero"
-        style={{ backgroundImage: `url(${heroImage})` }}
-      >
-        <Navbar activeLabel="About Us" />
+      <div className="about-scroll-stage">
+        <section
+          className="about-hero"
+          style={{ backgroundImage: `url(${heroImage})` }}
+        >
+          <Navbar activeLabel="About Us" />
 
-        <div className="about-hero-overlay">
-          <div className="about-hero-texts">
-            <h2 className="about-hero-subtitle">Find your Way,</h2>
-            <h1 className="about-hero-title">Love Your Stay</h1>
+          <div className="about-hero-overlay">
+            <div className="about-hero-texts" />
           </div>
-        </div>
+        </section>
 
-        <img className="about-divider" src={divider} alt="" />
-      </section>
+        <section className="about-content">
+          <div className="about-content-inner">
+            {sections.map((section, index) => (
+              <article
+                key={section.title}
+                ref={(element) => {
+                  cardRefs.current[index] = element;
+                }}
+                data-index={index}
+                className={`about-card ${section.layout} ${
+                  visibleSections.includes(index) ? 'is-visible' : ''
+                }`}
+                style={{ transitionDelay: `${index * 160}ms` }}
+              >
+                <div className="about-card-media">
+                  <img src={section.image} alt={section.imageAlt} />
+                </div>
 
-      <section className="about-content">
-        <div className="about-content-inner">
-          {sections.map((section) => (
-            <article
-              key={section.title}
-              className={`about-card ${section.layout}`}
-            >
-              <div className="about-card-media">
-                <img src={section.image} alt={section.imageAlt} />
-              </div>
-
-              <div className="about-card-copy">
-                <h2>{section.title}</h2>
-                <p>{section.text}</p>
-              </div>
-            </article>
-          ))}
-
-          <button className="about-next-button" type="button" aria-label="Next">
-            <FontAwesomeIcon icon={faArrowRight} />
-          </button>
-        </div>
-      </section>
-      <Footer/>
+                <div className="about-card-copy">
+                  <h2>{section.title}</h2>
+                  <p>{section.text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      </div>
+      <Footer />
     </div>
   );
 };
