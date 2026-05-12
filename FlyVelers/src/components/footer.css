@@ -1,12 +1,12 @@
 .footer {
-  background: linear-gradient(to right, #1c1c1c, #121212);
-  color: #ccc;
-  padding: 60px 80px 30px;
+  background: #042142;
+  color: #fff;
+  padding: 30px 80px 30px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 40px;
+  gap: 0px;
 }
 
 /* Título */
@@ -22,7 +22,7 @@
   grid-column: 1;
   font-size: 14px;
   line-height: 1.6;
-  color: #aaa;
+  color: #fff;
 }
 
 /* Columnas */
@@ -50,17 +50,18 @@
   margin-bottom: 10px;
 }
 
+/* Links */
 .company a,
 .explore a {
   text-decoration: none;
-  color: #ccc;
+  color: #fff;
   font-size: 14px;
   transition: 0.3s;
 }
 
 .company a:hover,
 .explore a:hover {
-  color: #fff;
+  color: #d4d4d4;
 }
 
 /* Títulos simulados */
@@ -95,6 +96,7 @@
   gap: 10px;
   margin-bottom: 12px;
   font-size: 14px;
+  color: #fff;
 }
 
 .contact svg {
@@ -103,11 +105,11 @@
   fill: #facc15;
 }
 
-/* Línea */
+/* Línea separadora */
 .separator {
   grid-column: 1 / -1;
   height: 1px;
-  background: #2a2a2a;
+  background: rgba(255,255,255,0.2);
   margin: 30px 0 10px;
 }
 
@@ -115,5 +117,5 @@
 .footer > p:last-child {
   grid-column: 1 / -1;
   font-size: 13px;
-  color: #888;
+  color: #fff;
 }

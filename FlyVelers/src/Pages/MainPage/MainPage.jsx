@@ -13,6 +13,9 @@ import netherlands from '../../assets/netherlands.jpg';
 import hongkong from '../../assets/hongkong.jpg';
 import singapore from '../../assets/singapore.jpg';
 import divider from '../../assets/bottom-shape.webp.png'
+import guatemala2 from '../../assets/Mejor Guatemala.png'
+import chile2 from '../../assets/chilemejor.png'
+import peru3 from '../../assets/peru3.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { faSistrix } from '@fortawesome/free-brands-svg-icons'
@@ -21,19 +24,19 @@ const MainPage = () => {
   const attractions = [
     {
       title: 'PERU',
-      image: peru,
+      image: peru3,
       tag: 'Sacred Landscapes',
       description: 'Ancient routes, dramatic peaks and immersive culture around every turn.',
     },
     {
       title: 'GUATEMALA',
-      image: guatemala,
+      image: guatemala2,
       tag: 'Colonial Energy',
       description: 'Colorful plazas, artisan traditions and architecture with deep local identity.',
     },
     {
       title: 'CHILE',
-      image: chile,
+      image: chile2,
       tag: 'Southern Horizons',
       description: 'Patagonian lakes, powerful mountain ranges and cinematic natural scenery.',
     },
