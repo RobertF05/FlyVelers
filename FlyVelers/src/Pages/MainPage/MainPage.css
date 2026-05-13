@@ -1,5 +1,5 @@
 /* ================= CSS ================= */
-
+ 
 /* RESET */
 * {
   margin: 0;
@@ -202,6 +202,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   padding: 30px 34px 34px;
+  
 }
 
 .card-overlay {
