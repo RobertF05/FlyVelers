@@ -6,6 +6,7 @@ import Services from './Pages/services/services.jsx';
 import Partners from './Pages/Partners/Partners.jsx';
 import Login from './components/login.jsx'
 import Reviews from './Pages/Reviews/Reviews.jsx';
+import Blog from './Pages/Blog/blog.jsx';
 
 import './App.css';
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/partners" element={<Partners />} />
         <Route path="/reviews" element={<Reviews />} />
+        <Route path="/blog" element={<Blog />} />
         
         {/* ruta temporal */}
         <Route path="/login" element={<Login />} />
