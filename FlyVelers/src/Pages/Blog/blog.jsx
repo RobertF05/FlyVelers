@@ -10,9 +10,9 @@ import nicaragua from '../../assets/Nicaragua.jpg';
 import brazil from '../../assets/Brazil.png';
 import japan from '../../assets/Japan.jpg';
 import newZealand from '../../assets/New Zealand.jpg';
-import russia from '../../assets/Russia.jpg';
-import france from '../../assets/France.png';
-import monaco from '../../assets/Monaco.png';
+import russia from '../../assets/Russia-enhanced.png';
+import france from '../../assets/France-enhanced.png';
+import monaco from '../../assets/Monaco-enhanced.png';
 import taiwan from '../../assets/Taiwan.jpg';
 
 const blogSections = [
