@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './blog.css';
 import Navbar from '../../components/navbar.jsx';
 import Footer from '../../components/footer.jsx';
@@ -179,9 +179,20 @@ const blogSections = [
 
 function Blog() {
   const [selectedPost, setSelectedPost] = useState(null);
+  const [pageReady, setPageReady] = useState(false);
+  const [visibleSections, setVisibleSections] = useState({});
+  const sectionRefs = useRef([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    const frameId = window.requestAnimationFrame(() => {
+      setPageReady(true);
+    });
+
+    return () => window.cancelAnimationFrame(frameId);
   }, []);
 
   useEffect(() => {
@@ -206,8 +217,39 @@ function Blog() {
     };
   }, [selectedPost]);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const { sectionid } = entry.target.dataset;
+
+          if (!sectionid) {
+            return;
+          }
+
+          setVisibleSections((current) => ({
+            ...current,
+            [sectionid]: entry.isIntersecting,
+          }));
+        });
+      },
+      {
+        threshold: 0.28,
+        rootMargin: '0px 0px -10% 0px',
+      }
+    );
+
+    sectionRefs.current.forEach((section) => {
+      if (section) {
+        observer.observe(section);
+      }
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="blog-page">
+    <div className={`blog-page ${pageReady ? 'page-ready' : ''}`}>
       <section
         className="blog-hero"
         style={{ backgroundImage: `url(${scotland})` }}
@@ -227,17 +269,26 @@ function Blog() {
           <h2>Recommended Trips For Your</h2>
         </header>
 
-        {blogSections.map((section) => (
-          <section key={section.title} className="blog-section">
+        {blogSections.map((section, sectionIndex) => (
+          <section
+            key={section.title}
+            ref={(element) => {
+              sectionRefs.current[sectionIndex] = element;
+            }}
+            data-sectionid={section.title}
+            className={`blog-section ${visibleSections[section.title] ? 'is-visible' : ''}`}
+            style={{ '--section-delay': `${sectionIndex * 0.16}s` }}
+          >
             <h3>{section.title}</h3>
 
             <div className="blog-grid">
-              {section.posts.map((post) => (
+              {section.posts.map((post, postIndex) => (
                 <button
                   key={post.title}
                   type="button"
                   className="blog-card"
                   onClick={() => setSelectedPost(post)}
+                  style={{ '--card-delay': `${postIndex * 0.1}s` }}
                 >
                   <div className="blog-card-media">
                     <img src={post.image} alt={post.title} className="blog-card-image" />
