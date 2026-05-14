@@ -35,6 +35,7 @@
   line-height: 0.95;
   color: rgba(20, 20, 20, 0.88);
   text-shadow: 0 5px 16px rgba(255, 255, 255, 0.18);
+  animation: slideFromLeft 1.2s ease forwards;
 }
 
 .blog-hero-title {
@@ -45,6 +46,7 @@
   text-align: right;
   color: #ffffff;
   text-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
+  animation: slideFromRight 1.2s ease forwards;
 }
 
 .blog-divider {
@@ -347,6 +349,30 @@
     opacity: 1;
     transform: translateY(0) scale(1);
     filter: blur(0);
+  }
+}
+
+@keyframes slideFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-120px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(120px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
