@@ -255,12 +255,149 @@ function PartnerSection({ section, index, activeIndex }) {
   );
 }
 
+function MobilePartnerExperience({
+  sections,
+  activeSection,
+  onSelectSection,
+  selectedPartners,
+  onSelectPartner,
+  expandedOffers,
+  onToggleOffers,
+}) {
+  const currentSection = sections[activeSection];
+  const activePartnerName = selectedPartners[currentSection.title] ?? currentSection.partners[0].name;
+  const activePartner =
+    currentSection.partners.find((partner) => partner.name === activePartnerName) ?? currentSection.partners[0];
+  const previewOffers = currentSection.offers.slice(0, 3);
+  const hiddenOffers = currentSection.offers.slice(3);
+  const isExpanded = Boolean(expandedOffers[currentSection.title]);
+
+  return (
+    <div className="partners-mobile-experience">
+      <div className="partners-mobile-tabs" aria-label="Partner sections">
+        {sections.map((section, index) => (
+          <button
+            key={section.title}
+            type="button"
+            className={`partners-mobile-tab ${index === activeSection ? 'active' : ''}`}
+            onClick={() => onSelectSection(index)}
+            aria-pressed={index === activeSection}
+          >
+            {section.title}
+          </button>
+        ))}
+      </div>
+
+      <section
+        className="partners-mobile-hero-card"
+        style={{ backgroundImage: `url(${currentSection.backgroundImage})` }}
+      >
+        <div className="partners-mobile-hero-overlay" />
+        <div className="partners-mobile-hero-copy">
+          <span className="partners-mobile-eyebrow">FlyVelers partners</span>
+          <h3>{currentSection.title}</h3>
+          <p>Partner benefits curated for mobile browsing, with one focused experience at a time.</p>
+        </div>
+      </section>
+
+      <section className="partners-mobile-offers-card">
+        <div className="partners-mobile-card-head">
+          <span>Featured benefits</span>
+          <button
+            type="button"
+            className="partners-mobile-toggle"
+            onClick={() => onToggleOffers(currentSection.title)}
+            aria-expanded={isExpanded}
+          >
+            {isExpanded ? 'Show less' : 'Show all'}
+          </button>
+        </div>
+
+        <ul className="partners-mobile-offers-list">
+          {previewOffers.map((offer) => (
+            <li key={offer}>{offer}</li>
+          ))}
+          {isExpanded
+            ? hiddenOffers.map((offer) => (
+                <li key={offer}>{offer}</li>
+              ))
+            : null}
+        </ul>
+      </section>
+
+      <section className="partners-mobile-partners-card">
+        <div className="partners-mobile-card-head">
+          <span>Choose a partner</span>
+          <strong>{currentSection.partners.length} available</strong>
+        </div>
+
+        <div className="partners-mobile-partner-rail" aria-label={`${currentSection.title} partners`}>
+          {currentSection.partners.map((partner) => (
+            <button
+              key={partner.name}
+              type="button"
+              className={`partners-mobile-partner-chip ${partner.name === activePartner.name ? 'active' : ''}`}
+              onClick={() => onSelectPartner(currentSection.title, partner.name)}
+            >
+              <span
+                className="partners-mobile-partner-chip-image"
+                style={{ backgroundColor: partner.background }}
+              >
+                <img src={partner.image} alt={partner.name} />
+              </span>
+              <span className="partners-mobile-partner-chip-name">{partner.name}</span>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <article className="partners-mobile-spotlight">
+        <div className="partners-mobile-spotlight-media" style={{ backgroundColor: activePartner.background }}>
+          <img src={activePartner.image} alt={activePartner.name} />
+        </div>
+
+        <div className="partners-mobile-spotlight-body">
+          <span className="partners-mobile-spotlight-kicker">{activePartner.category}</span>
+          <h4>{activePartner.name}</h4>
+          <p className="partners-mobile-spotlight-location">{activePartner.location}</p>
+          <p className="partners-mobile-spotlight-description">{activePartner.description}</p>
+        </div>
+      </article>
+    </div>
+  );
+}
+
 const Partners = () => {
   const stackRef = useRef(null);
   const [activeSection, setActiveSection] = useState(0);
   const [showSectionBackdrop, setShowSectionBackdrop] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 768);
+  const [selectedPartners, setSelectedPartners] = useState(() =>
+    Object.fromEntries(sections.map((section) => [section.title, section.partners[0].name]))
+  );
+  const [expandedOffers, setExpandedOffers] = useState(() =>
+    Object.fromEntries(sections.map((section) => [section.title, false]))
+  );
 
   useEffect(() => {
+    const handleViewport = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    handleViewport();
+    window.addEventListener('resize', handleViewport);
+
+    return () => {
+      window.removeEventListener('resize', handleViewport);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) {
+      setShowSectionBackdrop(true);
+      return undefined;
+    }
+
     const handleScroll = () => {
       const stackNode = stackRef.current;
 
@@ -292,7 +429,21 @@ const Partners = () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
     };
-  }, []);
+  }, [isMobile]);
+
+  const handleSelectPartner = (sectionTitle, partnerName) => {
+    setSelectedPartners((current) => ({
+      ...current,
+      [sectionTitle]: partnerName,
+    }));
+  };
+
+  const handleToggleOffers = (sectionTitle) => {
+    setExpandedOffers((current) => ({
+      ...current,
+      [sectionTitle]: !current[sectionTitle],
+    }));
+  };
 
   return (
     <div className="partners-page">
@@ -326,7 +477,19 @@ const Partners = () => {
             className={`partners-stack-stage ${showSectionBackdrop ? 'partners-stack-stage-with-backdrop' : ''}`}
             style={{ '--partners-city-backdrop': `url(${osloCity})` }}
           >
-            <div className="partners-stack-meta">
+            {isMobile ? (
+              <MobilePartnerExperience
+                sections={sections}
+                activeSection={activeSection}
+                onSelectSection={setActiveSection}
+                selectedPartners={selectedPartners}
+                onSelectPartner={handleSelectPartner}
+                expandedOffers={expandedOffers}
+                onToggleOffers={handleToggleOffers}
+              />
+            ) : null}
+
+            <div className="partners-stack-meta" aria-hidden={isMobile}>
               <div className="partners-stack-dots" aria-hidden="true">
                 {sections.map((section, index) => (
                   <span
@@ -337,7 +500,7 @@ const Partners = () => {
               </div>
             </div>
 
-            <div className="partners-sections">
+            <div className="partners-sections" aria-hidden={isMobile}>
               {sections.map((section, index) => (
                 <PartnerSection
                   key={section.title}

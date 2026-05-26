@@ -1,15 +1,98 @@
-import React from "react";
+import React, { useState } from "react";
 import "./services.css";
 import Navbar from "../../components/navbar.jsx";
-import Footer from '../../components/footer.jsx';
+import Footer from "../../components/footer.jsx";
 import auroras from "../../assets/auroras.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
+const servicePlans = [
+  {
+    id: "basic",
+    title: "Plan Basic",
+    monthly: "60$ Monthly",
+    price: "300$",
+    per: "Per person (short trips, 3-5 days)",
+    cardClass: "",
+    iconWrapClass: "fondo-icon",
+    iconClass: "icon-bg",
+    includeLabel: "Services Include:",
+    services: [
+      "Round-trip economy airfare (regional destinations)",
+      "3-4 star hotel accommodation",
+      "Airport transfers (shuttle or shared transport)",
+      "Basic insurance (medical + luggage coverage)",
+      "One guided city tour or excursion",
+    ],
+    details: {
+      idealFor: "Weekend escapes, first-time travelers and short regional getaways.",
+      planning: "Simple itinerary with flight, hotel, transport and one curated activity.",
+      support: "Standard booking assistance before departure.",
+      extras: ["Short stays", "Shared transfers", "Basic coverage"],
+    },
+  },
+  {
+    id: "standard",
+    title: "Plan Standard",
+    monthly: "100$ Monthly",
+    price: "800$",
+    per: "Per person (medium trips, 5-7 days)",
+    cardClass: "highlight",
+    iconWrapClass: "fondo-icon-standard",
+    iconClass: "icon-bg-standard",
+    includeLabel: "Services Included:",
+    services: [
+      "Round-trip economy airfare (international destinations)",
+      "4-5 star hotel accommodation with breakfast included",
+      "Private airport transfers",
+      "Comprehensive travel insurance",
+      "Two guided tours or excursions",
+      "24/7 customer support during the trip",
+    ],
+    details: {
+      idealFor: "Balanced international trips with more comfort and stronger support.",
+      planning: "A richer itinerary with private transfers, breakfast and two experiences.",
+      support: "24/7 trip support while traveling.",
+      extras: ["Recommended", "Private transfers", "Trip cancellation"],
+    },
+  },
+  {
+    id: "premium",
+    title: "Plan Premium",
+    monthly: "Premium Monthly",
+    price: "2000$",
+    per: "Per person (luxury trips, 7-10 days)",
+    cardClass: "",
+    iconWrapClass: "fondo-icon-premiun",
+    iconClass: "icon-bg-premiun",
+    includeLabel: "Services Included:",
+    services: [
+      "Round-trip business class airfare",
+      "5-star luxury resort or boutique hotel",
+      "Private airport transfers with premium vehicles",
+      "VIP travel insurance",
+      "Multiple guided tours and exclusive experiences",
+      "Concierge service for reservations and special requests",
+      "Personalized itinerary planning with flexible options",
+    ],
+    details: {
+      idealFor: "Luxury travel, honeymoon-style escapes and fully personalized journeys.",
+      planning: "Flexible premium itinerary with concierge handling reservations and requests.",
+      support: "Priority assistance plus VIP insurance protection.",
+      extras: ["Business class", "Concierge", "Exclusive experiences"],
+    },
+  },
+];
+
 const Services = () => {
+  const [activePlan, setActivePlan] = useState(null);
+
+  const togglePlan = (planId) => {
+    setActivePlan((currentPlan) => (currentPlan === planId ? null : planId));
+  };
+
   return (
     <div className="services-container">
-      {/* HERO */}
       <section
         className="services-hero"
         style={{ backgroundImage: `url(${auroras})` }}
@@ -24,85 +107,69 @@ const Services = () => {
         </div>
       </section>
 
-      {/* CARDS */}
       <section className="services-section">
         <div className="bg-shape1"></div>
         <div className="cards-wrapper">
-          {/* BASIC */}
-          <div className="service-card">
-            <div className="fondo-icon">
-              <div className="icon-bg">
-                <FontAwesomeIcon icon={faCheck} className="icon-check" />
-              </div>
-            </div>
-            <h3 className="tittle">Plan Basic</h3>
-            <p className="monthly">60$ Monthly</p>
+          {servicePlans.map((plan) => {
+            const isActive = activePlan === plan.id;
 
-            <h2>300$</h2>
-            <p className="per">Per person (short trips, 3–5 days)</p>
-            <div className="separador"></div>
-            <p className="SerInclude">Services Include:</p>
-            <ul>
-              <li>Round-trip economy airfare (regional destinatios) </li>
-              <li>3-4 star hotel accommodation</li>
-              <li>Airport transfers (shuttle or shared transport)</li>
-              <li>Basic insurance (medical + luggage covarage)</li>
-              <li>one guided city tour or excursion</li>
-            </ul>
-          </div>
+            return (
+              <article
+                key={plan.id}
+                className={`service-card ${plan.cardClass} ${isActive ? "is-active" : ""}`}
+                role="button"
+                tabIndex={0}
+                aria-expanded={isActive}
+                onClick={() => togglePlan(plan.id)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    togglePlan(plan.id);
+                  }
+                }}
+              >
+                <div className="service-card-main">
+                  <div className={plan.iconWrapClass}>
+                    <div className={plan.iconClass}>
+                      <FontAwesomeIcon icon={faCheck} className="icon-check" />
+                    </div>
+                  </div>
+                  <h3 className="tittle">{plan.title}</h3>
+                  <p className="monthly">{plan.monthly}</p>
 
-          {/* STANDARD */}
-          <div className="service-card highlight">
-            <div className="fondo-icon-standard">
-              <div className="icon-bg-standard">
-                <FontAwesomeIcon icon={faCheck} className="icon-check" />
-              </div>
-            </div>
-            <h3 className="tittle">Plan Standard</h3>
-            <p className="monthly">100$ Monthly</p>
+                  <h2>{plan.price}</h2>
+                  <p className="per">{plan.per}</p>
+                  <div className="separador"></div>
+                  <p className="SerInclude">{plan.includeLabel}</p>
+                  <ul>
+                    {plan.services.map((service) => (
+                      <li key={service}>{service}</li>
+                    ))}
+                  </ul>
+                </div>
 
-            <h2>800$</h2>
-            <p className="per">Per person (medium trips, 5–7 days)</p>
-            <div className="separador"></div>
-            <p className="SerInclude">Services Included:</p>
-            <ul>
-              <li>Round-trip economy airfare (international destinatios)</li>
-              <li>4–5 star hotel accommodation with breaksfast included</li>
-              <li>Private airport transfers</li>
-              <li>Comprehensive travel insurance (medical, luggage, trip cancellation)</li>
-              <li>Two guided tours or excursions (cultural + adventure)</li>
-              <li>24/7 customer support during the trip</li>
-            </ul>
-          </div>
+                <div className="subscription-details" aria-hidden={!isActive}>
+                  <span className="details-kicker">Subscription details</span>
+                  <p>{plan.details.idealFor}</p>
+                  <p>{plan.details.planning}</p>
+                  <p>{plan.details.support}</p>
+                  <div className="details-tags">
+                    {plan.details.extras.map((extra) => (
+                      <span key={extra}>{extra}</span>
+                    ))}
+                  </div>
+                </div>
 
-          {/* PREMIUM */}
-          <div className="service-card">
-            <div className="fondo-icon-premiun">
-              <div className="icon-bg-premiun">
-                <FontAwesomeIcon icon={faCheck} className="icon-check" />
-              </div>
-            </div>
-            <h3 className="tittle">Plan Premium</h3>
-            <p className="monthly">Plan Premiun</p>
-
-            <h2>2000$</h2>
-            <p className="per">Per person (luxury trips, 7–10 days)</p>
-            <div className="separador"></div>
-            <p className="SerInclude">Services Included:</p>
-            <ul>
-              <li>Round-trip business class airfare</li>
-              <li>5-Start luxury resort or boutique hotel with half-board or all inclusive options</li>
-              <li>Private airports transfers with premiun vehicules</li>
-              <li>VIP travel insurance (medical, luggage, cancellation, emergency evacuation)</li>
-              <li>Multiple guided tours and exclusive experiencies (wine tasting, private yacht, cultural immersion)</li>
-              <li>Concierge service for restaurant reservation and special request</li>
-              <li>Personalized itinerary planning with flexible option</li>
-            </ul>
-          </div>
-            <div className="bg-shape2"></div>
+                <span className="card-action">
+                  {isActive ? "Tap to close" : "Tap for details"}
+                </span>
+              </article>
+            );
+          })}
+          <div className="bg-shape2"></div>
         </div>
       </section>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
