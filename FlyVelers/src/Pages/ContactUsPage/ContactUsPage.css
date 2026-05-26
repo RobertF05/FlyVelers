@@ -1,0 +1,333 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.Encabezado {
+  width: 100%;
+  height: 70vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.titles {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  color: white;
+}
+
+.subtitulo {
+  font-size: 6rem;
+  color: #fff;
+  font-family: "Roboto", sans-serif;
+  font-weight: 800;
+  text-align: start;
+  left: 18%;
+  position: relative;
+}
+
+.titulo {
+  text-align: end;
+  font-size: 5rem;
+  font-weight: 700;
+  margin-top: 10px;
+  font-family: "Playball", cursive;
+  font-weight: 400;
+  right: 18%;
+  position: relative;
+}
+
+.divider {
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+
+  width: 100%;
+}
+
+.Formulario {
+  width: 100%;
+  min-height: 100vh;
+
+  padding: 5rem 8%;
+
+  background: #f5f5f5;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3rem;
+}
+
+.formulario form {
+  width: 420px;
+  padding: 2rem;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.formulario h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.formulario input {
+  width: 100%;
+  padding: 1rem 0;
+  border: none;
+  border-bottom: 2px solid #d9d9d9;
+  background: transparent;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.3s;
+}
+.formulario input:focus {
+  border-bottom: 2px solid #f5b400;
+}
+.dateBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formulario button {
+  width: 100%;
+
+  padding: 1rem;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #f5b400;
+
+  color: white;
+
+  font-size: 1rem;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.formulario button:hover {
+  background: #db9f00;
+}
+.selectBox {
+  position: relative;
+}
+.selectBox::after {
+  content: "⌄";
+
+  position: absolute;
+
+  right: 5px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  font-size: 1rem;
+
+  color: #777;
+
+  pointer-events: none;
+
+  transition: 0.3s;
+}
+.selectBox:hover::after {
+  color: #db9f00;
+}
+.formulario select {
+  width: 100%;
+
+  padding: 1rem 2rem 1rem 0;
+
+  border: none;
+  border-bottom: 2px solid #d9d9d9;
+
+  background: transparent;
+
+  font-size: 1rem;
+  font-weight: 500;
+
+  color: #555;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.formulario select:focus {
+  border-bottom: 2px solid #db9f00;
+}
+
+.viajero img {
+  width: 100%;
+  max-width: 550px;
+
+  object-fit: contain;
+}
+.viajero {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 720px;
+  max-height: none !important;
+  overflow: hidden;
+  right: -5%;
+}
+
+.fondo-traveller {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 110%;
+  max-width: 780px;
+  height: auto;
+  z-index: 1;
+  opacity: 0.95;
+  object-fit: contain;
+}
+
+.persona-traveller {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 650px !important;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.15));
+}
+
+.viajero:hover .persona-traveller {
+  transform: scale(1.04) translateY(-15px);
+  transition: transform 0.5s ease;
+}
+.customDate {
+  width: 100%;
+
+  padding: 1rem 0;
+
+  border: none;
+  border-bottom: 2px solid #d9d9d9;
+
+  background: transparent;
+
+  font-size: 1rem;
+
+  outline: none;
+
+  transition: 0.3s;
+}
+
+.customDate:focus {
+  border-bottom: 2px solid #00a8cc;
+}
+.react-datepicker {
+  border: none !important;
+
+  border-radius: 20px !important;
+
+  overflow: hidden;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12) !important;
+
+  font-family: "Roboto", sans-serif !important;
+}
+.react-datepicker__header {
+  background-color: white !important;
+
+  border-bottom: 1px solid #eee !important;
+
+  padding-top: 15px !important;
+}
+.react-datepicker__day--selected {
+  background-color: #00a8cc !important;
+
+  border-radius: 50% !important;
+}
+.react-datepicker__day:hover {
+  background-color: #dff6fd !important;
+
+  border-radius: 50%;
+}
+.react-datepicker__month-dropdown,
+.react-datepicker__year-dropdown {
+  background-color: white !important;
+
+  border: 1px solid #ddd !important;
+
+  border-radius: 10px !important;
+}
+
+/* ================= TOGGLE MINIMALISTA ================= */
+
+.form-toggle {
+  display: flex;
+
+  align-items: center;
+
+  gap: 2rem;
+
+  margin-bottom: 2rem;
+}
+
+/* BOTONES */
+
+.toggle-btn {
+  position: relative;
+  padding: 0.5rem 0;
+  border: none;
+  background: transparent !important;
+  color: #111 !important;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    color 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.toggle-btn::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: -8px;
+
+  width: 0%;
+  height: 2px;
+
+  background: #d4a017;
+
+  transition: width 0.35s ease;
+}
+
+.toggle-btn:hover {
+  color: #222;
+}
+
+.toggle-btn.active {
+  color: #111;
+}
+
+.toggle-btn.active::after {
+  width: 100%;
+}
