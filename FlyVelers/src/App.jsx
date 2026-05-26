@@ -7,6 +7,8 @@ import Partners from './Pages/Partners/Partners.jsx';
 import Login from './components/login.jsx'
 import Reviews from './Pages/Reviews/Reviews.jsx';
 import Blog from './Pages/Blog/blog.jsx';
+import Discounts from './Pages/Discounts/Disconunts.jsx';
+import RoutesPage from './Pages/Routes/Routes.jsx';
 
 import './App.css';
 
@@ -21,6 +23,8 @@ function App() {
         <Route path="/partners" element={<Partners />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/discounts" element={<Discounts />} />
+        <Route path="/routes" element={<RoutesPage />} />
         
         {/* ruta temporal */}
         <Route path="/login" element={<Login />} />
