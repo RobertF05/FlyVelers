@@ -163,7 +163,7 @@
     padding: 14px;
     border-radius: 20px;
     background:
-      linear-gradient(180deg, rgba(248, 251, 255, 0.24), rgba(242, 246, 251, 0.3)),
+      linear-gradient(180deg,  rgba(233, 239, 244, 0.55), rgba(224, 232, 237, 0.48)),
       var(--navbar-mobile-menu-bg, none);
     background-size: cover;
     background-position: center;

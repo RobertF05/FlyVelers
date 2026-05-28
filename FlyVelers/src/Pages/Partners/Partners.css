@@ -35,15 +35,16 @@
 }
 
 .partners-hero-subtitle {
-  font-size: clamp(3.9rem, 8vw, 5.6rem);
+  font-size: 6rem;
   font-family: 'Playball', cursive;
-  font-weight: 400;
+  font-weight: 400 ;
   line-height: 0.95;
   color: #f6dfc2;
   text-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
   opacity: 0;
   transform: translateY(28px) rotate(-1.5deg);
   animation: partnersHeroTextReveal 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+ 
 }
 
 .partners-hero-title {

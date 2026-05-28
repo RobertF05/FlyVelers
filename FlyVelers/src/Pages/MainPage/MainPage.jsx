@@ -1,62 +1,73 @@
-import React, { useEffect, useState } from 'react';
-import './MainPage.css';
-import Navbar from '../../components/navbar.jsx';
-import Footer from '../../components/footer.jsx';
+import React, { useEffect, useState, useRef } from "react";
+import "./MainPage.css";
+import Navbar from "../../components/navbar.jsx";
+import Footer from "../../components/footer.jsx";
 
 // Images
-import maldivas from '../../assets/maldivas.png';
-import phone from '../../assets/celular-logo.png';
-import peru from '../../assets/peru.png';
-import guatemala from '../../assets/guatemala.png';
-import chile from '../../assets/chile.png';
-import netherlands from '../../assets/netherlands.jpg';
-import hongkong from '../../assets/hongkong.jpg';
-import singapore from '../../assets/singapore.jpg';
-import divider from '../../assets/bottom-shape.webp.png'
-import guatemala2 from '../../assets/Mejor Guatemala.png'
-import chile2 from '../../assets/chilemejor.png'
-import peru3 from '../../assets/peru3.png'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
-import { faSistrix } from '@fortawesome/free-brands-svg-icons'
+import maldivas from "../../assets/maldivas.png";
+import phone from "../../assets/celular-logo.png";
+import peru from "../../assets/peru.png";
+import guatemala from "../../assets/guatemala.png";
+import chile from "../../assets/chile.png";
+import netherlands from "../../assets/netherlands.jpg";
+import hongkong from "../../assets/hongkong.jpg";
+import singapore from "../../assets/singapore.jpg";
+import divider from "../../assets/bottom-shape.webp.png";
+import guatemala2 from "../../assets/Mejor Guatemala.png";
+import chile2 from "../../assets/chilemejor.png";
+import peru3 from "../../assets/peru3.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
+import { faSistrix } from "@fortawesome/free-brands-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
+  const navigate = useNavigate();
   const attractions = [
     {
-      title: 'PERU',
+      title: "PERU",
       image: peru3,
-      tag: 'Sacred Landscapes',
-      description: 'Ancient routes, dramatic peaks and immersive culture around every turn.',
+      tag: "Sacred Landscapes",
+      description:
+        "Ancient routes, dramatic peaks and immersive culture around every turn.",
     },
     {
-      title: 'GUATEMALA',
+      title: "GUATEMALA",
       image: guatemala2,
-      tag: 'Colonial Energy',
-      description: 'Colorful plazas, artisan traditions and architecture with deep local identity.',
+      tag: "Colonial Energy",
+      description:
+        "Colorful plazas, artisan traditions and architecture with deep local identity.",
     },
     {
-      title: 'CHILE',
+      title: "CHILE",
       image: chile2,
-      tag: 'Southern Horizons',
-      description: 'Patagonian lakes, powerful mountain ranges and cinematic natural scenery.',
+      tag: "Southern Horizons",
+      description:
+        "Patagonian lakes, powerful mountain ranges and cinematic natural scenery.",
     },
     {
-      title: 'NETHERLANDS',
+      title: "NETHERLANDS",
       image: netherlands,
-      tag: 'Canal Escapes',
-      description: 'Refined city life, timeless streets and quiet waterways with European charm.',
+      tag: "Canal Escapes",
+      description:
+        "Refined city life, timeless streets and quiet waterways with European charm.",
     },
     {
-      title: 'HONG KONG',
+      title: "HONG KONG",
       image: hongkong,
-      tag: 'Skyline Motion',
-      description: 'Dense urban rhythm, harbor lights and world-class food in a vertical city.',
+      tag: "Skyline Motion",
+      description:
+        "Dense urban rhythm, harbor lights and world-class food in a vertical city.",
     },
     {
-      title: 'SINGAPORE',
+      title: "SINGAPORE",
       image: singapore,
-      tag: 'Future Nature',
-      description: 'Gardens, waterfront architecture and a polished mix of modern Asian luxury.',
+      tag: "Future Nature",
+      description:
+        "Gardens, waterfront architecture and a polished mix of modern Asian luxury.",
     },
   ];
 
@@ -71,20 +82,37 @@ const MainPage = () => {
   }, [attractions.length]);
 
   const goToPreviousSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + attractions.length) % attractions.length);
+    setCurrentSlide(
+      (prev) => (prev - 1 + attractions.length) % attractions.length,
+    );
   };
 
   const goToNextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % attractions.length);
   };
+  const ctaRef = useRef(null);
+  const [showCTA, setShowCTA] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShowCTA(true);
+        }
+      },
+      { threshold: 0.3 },
+    );
+
+    if (ctaRef.current) {
+      observer.observe(ctaRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="main-container">
-
-      <section
-        className="hero"
-        style={{ backgroundImage: `url(${maldivas})` }}
-      >
+      <section className="hero" style={{ backgroundImage: `url(${maldivas})` }}>
         <Navbar />
 
         <div className="hero-overlay">
@@ -98,12 +126,18 @@ const MainPage = () => {
               type="text"
               className="search-input"
               placeholder="Elevate your journey above the expected, exploring the world's finest destinations with the seamless grace of FlyVelers."
-               disabled
-               onChange={() => {}}
+              disabled
+              onChange={() => {}}
             />
           </div>
 
-          <button className="explore-btn">Explore <FontAwesomeIcon icon={faSistrix} style={{marginLeft: "10px"}} /> </button>
+          <button className="explore-btn" onClick={() => navigate("/routes")}>
+            Explore{" "}
+            <FontAwesomeIcon
+              icon={faSistrix}
+              style={{ marginLeft: "10px" }}
+            />{" "}
+          </button>
         </div>
 
         <img className="divider" src={divider} alt="" aria-hidden="true" />
@@ -113,7 +147,9 @@ const MainPage = () => {
         <div className="destinations-header">
           <h2>Tourist Attractions</h2>
           <p>
-            Explore all kinds of flavors, crafts, and unparalleled experiences, while contributing to the preservation of traditions and cultures from around the world.
+            Explore all kinds of flavors, crafts, and unparalleled experiences,
+            while contributing to the preservation of traditions and cultures
+            from around the world.
           </p>
         </div>
 
@@ -142,7 +178,8 @@ const MainPage = () => {
                   <div className="carousel-card-top">
                     <span className="carousel-tag">{attraction.tag}</span>
                     <span className="carousel-count">
-                      {String(currentSlide + 1).padStart(2, '0')} / {String(attractions.length).padStart(2, '0')}
+                      {String(currentSlide + 1).padStart(2, "0")} /{" "}
+                      {String(attractions.length).padStart(2, "0")}
                     </span>
                   </div>
 
@@ -153,7 +190,9 @@ const MainPage = () => {
                     <div className="carousel-progress" aria-hidden="true">
                       <span
                         className="carousel-progress-bar"
-                        style={{ width: `${((currentSlide + 1) / attractions.length) * 100}%` }}
+                        style={{
+                          width: `${((currentSlide + 1) / attractions.length) * 100}%`,
+                        }}
                       />
                     </div>
                   </div>
@@ -177,7 +216,7 @@ const MainPage = () => {
             <button
               key={attraction.title}
               type="button"
-              className={`carousel-dot ${index === currentSlide ? 'active' : ''}`}
+              className={`carousel-dot ${index === currentSlide ? "active" : ""}`}
               onClick={() => setCurrentSlide(index)}
               aria-label={`Show ${attraction.title}`}
             />
@@ -185,13 +224,22 @@ const MainPage = () => {
         </div>
       </section>
 
-      <section className="cta">
+      <section className={`cta ${showCTA ? "show-cta" : ""}`} ref={ctaRef}>
         <div className="cta-content">
           <div className="cta-text">
             <h2>Ready to Embark on a Global Adventure with Us?</h2>
             <p>
-              Experience hassle-free travel on our reliable platform, where transparency and satisfaction come first.
+              Experience hassle-free travel on our reliable platform, where
+              transparency and satisfaction come first.
             </p>
+            <a
+              href="https://www.tiktok.com/@fly.velers/video/7626001455081688340?_r=1&_t=ZS-96j8bloEixB"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="tiktok-ref"
+            >
+              Watch our TikTok
+            </a>
           </div>
 
           <div className="cta-image">
@@ -199,9 +247,8 @@ const MainPage = () => {
           </div>
         </div>
       </section>
-      <Footer/>
+      <Footer />
     </div>
-   
   );
 };
 

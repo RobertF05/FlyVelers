@@ -234,8 +234,10 @@ function Blog() {
         });
       },
       {
-        threshold: 0.28,
-        rootMargin: '0px 0px -10% 0px',
+        threshold: window.innerWidth <= 768? 0.03:  0.28,
+        rootMargin: window.innerWidth <= 768 
+         ? '0px 0px -4% 0px' 
+         : '0px 0px -10% 0px',
       }
     );
 

@@ -126,7 +126,7 @@ const Reviews = () => {
 
                     <div className="review-content">
                       <div className="review-text-side">
-                        <span className="quote-icon">❝</span>
+                        
 
                         <p className="review-text">
                           {review.text}
