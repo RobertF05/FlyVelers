@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import './Partners.css';
 import Navbar from '../../components/navbar.jsx';
 import Footer from '../../components/footer.jsx';
-import divider from '../../assets/bottom-shape.webp.png';
+import partnersDivider from '../../assets/partners-hero-oslo-divider-v2.png';
 import newYork from '../../assets/NewYork.png';
 import osloCity from '../../assets/OsloCity.jpg';
 import apartment from '../../assets/apartment.png';
@@ -449,7 +449,7 @@ const Partners = () => {
     <div className="partners-page">
       <section
         className="partners-hero"
-        style={{ backgroundImage: `url(${newYork})` }}
+        style={{ backgroundImage: `url(${newYork})`, '--partners-divider-image': `url(${partnersDivider})` }}
       >
         <Navbar activeLabel="Partners" />
 
@@ -459,8 +459,6 @@ const Partners = () => {
             <h1 className="partners-hero-title">Love Your Stay</h1>
           </div>
         </div>
-
-        <img className="partners-divider" src={divider} alt="" aria-hidden="true" />
       </section>
 
       <section className="partners-content">

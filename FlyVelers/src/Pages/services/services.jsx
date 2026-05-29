@@ -100,6 +100,16 @@ const Services = () => {
         <Navbar />
 
         <div className="hero-overlay">
+          <div className="services-hero-intro">
+            <span className="services-hero-chip">Travel services</span>
+            <h2>Choose the level of planning, comfort and support that fits your next journey.</h2>
+            <p>
+              From short curated escapes to concierge-level luxury itineraries,
+              FlyVelers organizes each trip with clearer structure, better
+              support and smoother travel coordination.
+            </p>
+          </div>
+
           <div className="hero-texts">
             <h2 className="hero-subtitle">Find your Way,</h2>
             <h1 className="hero-title">Love Your Stay</h1>
@@ -109,6 +119,11 @@ const Services = () => {
 
       <section className="services-section">
         <div className="bg-shape1"></div>
+        <div className="services-section-intro">
+          <span className="services-section-chip">See below our subscription plans</span>
+          <span className="services-section-arrow" aria-hidden="true">↓</span>
+          <p>Compare the options and open any card to inspect what each level includes.</p>
+        </div>
         <div className="cards-wrapper">
           {servicePlans.map((plan) => {
             const isActive = activePlan === plan.id;

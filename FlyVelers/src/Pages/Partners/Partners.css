@@ -1,6 +1,6 @@
 .partners-page {
-  background: linear-gradient(180deg, #ffffff 0%, #f6f6f6 100%);
-  color: #101010;
+  background: #09111b;
+  color: #f8fafc;
 }
 
 .partners-hero {
@@ -8,10 +8,12 @@
   background-size: cover;
   background-position: center;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   align-items: center;
   justify-content: center;
+  isolation: isolate;
+  z-index: 1;
 }
 
 .partners-hero::before {
@@ -19,6 +21,24 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, rgba(255, 246, 235, 0.18) 0%, rgba(17, 23, 37, 0.12) 100%);
+}
+
+.partners-hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -28px;
+  height: 96px;
+  background-image: var(--partners-divider-image);
+  background-repeat: no-repeat;
+  background-position: center 50%;
+  background-size: cover;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.98;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 84%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 84%, transparent 100%);
 }
 
 .partners-hero-overlay {
@@ -61,35 +81,24 @@
     partnersHeroTitleGlow 1.55s ease 0.98s both;
 }
 
-.partners-divider {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  width: 100%;
-  height: 86px;
-  object-fit: cover;
-}
-
 .partners-content {
-  padding: 22px 0 110px;
+  position: relative;
+  padding: 38px 0 0;
+  isolation: isolate;
 }
 
 .partners-header {
+  position: relative;
+  z-index: 2;
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 18px;
 }
 
 .partners-header h2 {
+  margin: 0;
   font-size: clamp(2.3rem, 4vw, 3.6rem);
   font-weight: 900;
-  color: #030303;
-}
-
-.partners-header p {
-  margin-top: 10px;
-  font-size: 0.95rem;
-  color: #64748b;
+  color: #ffffff;
 }
 
 .partners-stack-scroll-space {
@@ -101,7 +110,7 @@
   position: sticky;
   top: 96px;
   min-height: calc(100vh - 108px);
-  padding: 18px 24px 24px;
+  padding: 18px 24px 0;
   isolation: isolate;
 }
 
@@ -110,10 +119,11 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(246, 246, 246, 0.54) 28%, rgba(246, 246, 246, 0.34) 100%),
+    linear-gradient(180deg, rgba(10, 15, 24, 0.12) 0%, rgba(10, 15, 24, 0.22) 100%),
     var(--partners-city-backdrop);
   background-position: center;
   background-size: cover;
+  background-repeat: no-repeat;
   border-radius: 32px;
   opacity: 0;
   transform: scale(1.03);
@@ -489,6 +499,12 @@
     padding: 154px 20px 96px;
   }
 
+  .partners-hero::after {
+    bottom: -18px;
+    height: 64px;
+    background-position: center 50%;
+  }
+
   .partners-hero-subtitle {
     font-size: 3rem;
   }
@@ -499,7 +515,8 @@
   }
 
   .partners-content {
-    padding-bottom: 56px;
+    padding-top: 28px;
+    padding-bottom: 0;
   }
 
   .partners-stack-scroll-space {
@@ -509,7 +526,7 @@
   .partners-stack-stage {
     position: static;
     min-height: auto;
-    padding: 0 12px;
+    padding: 0 12px 0;
   }
 
   .partners-stack-stage::before {
@@ -726,22 +743,17 @@
   }
 
   .partners-mobile-partner-rail {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    padding-bottom: 2px;
-    scrollbar-width: none;
-  }
-
-  .partners-mobile-partner-rail::-webkit-scrollbar {
-    display: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+    gap: 12px;
+    width: 100%;
   }
 
   .partners-mobile-partner-chip {
-    flex: 0 0 112px;
+    min-width: 0;
     display: grid;
-    gap: 8px;
-    padding: 10px;
+    gap: 12px;
+    padding: 14px;
     border-radius: 18px;
     background: rgba(248, 250, 252, 0.92);
     text-align: left;
@@ -760,25 +772,28 @@
   }
 
   .partners-mobile-partner-chip-image {
-    height: 58px;
+    min-height: clamp(84px, 20vw, 116px);
     display: grid;
     place-items: center;
     border-radius: 14px;
     overflow: hidden;
-    padding: 4px;
+    padding: 12px;
   }
 
   .partners-mobile-partner-chip-image img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    object-position: center;
+    transform: scale(0.96);
   }
 
   .partners-mobile-partner-chip-name {
-    font-size: 0.76rem;
+    font-size: 0.82rem;
     font-weight: 800;
     line-height: 1.2;
     color: #0f172a;
+    overflow-wrap: anywhere;
   }
 
   .partners-mobile-spotlight {
@@ -840,6 +855,30 @@
 
   .partners-sections {
     display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .partners-mobile-card-head {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .partners-mobile-card-head span,
+  .partners-mobile-card-head strong {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+  }
+
+  .partners-mobile-partner-rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .partners-mobile-partner-chip:last-child {
+    grid-column: 1 / -1;
+    width: min(196px, 100%);
+    justify-self: center;
   }
 }
 
