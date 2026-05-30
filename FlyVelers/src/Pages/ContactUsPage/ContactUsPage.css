@@ -3,7 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 }
- 
+
 .Encabezado {
   width: 100%;
   height: 70vh;
@@ -25,8 +25,11 @@
   text-align: center;
 
   color: white;
+    animation: heroReveal 1.2s ease forwards;
 }
-
+.apartado.formulario {
+  animation: formReveal 1s ease .3s both;
+}
 .subtitulo {
   font-size: 6rem;
   color: #fff;
@@ -35,6 +38,8 @@
   text-align: start;
   left: 18%;
   position: relative;
+    opacity: 0;
+  animation: subtitleReveal 1s ease .3s forwards;
 }
 
 .titulo {
@@ -46,6 +51,8 @@
   font-weight: 400;
   right: 18%;
   position: relative;
+   opacity: 0;
+  animation: titleReveal 1s ease .7s forwards;
 }
 
 .divider {
@@ -57,31 +64,60 @@
 }
 
 .Formulario {
+  position: relative;
+
   width: 100%;
   min-height: 100vh;
 
-  padding: 5rem 8%;
-
-  background: #f5f5f5;
+  padding: 6rem 8%;
 
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 3rem;
+  justify-content: center;
+  gap: 5rem;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at left top,
+      rgba(245, 180, 0, 0.08),
+      transparent 35%
+    ),
+    #f5f5f5;
 }
 
 .formulario form {
-  width: 420px;
-  padding: 2rem;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
+  width: 460px;
 
+  padding: 3rem;
+
+  border-radius: 30px;
+
+  backdrop-filter: blur(15px);
+
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+
+  border: 1px solid rgba(255, 255, 255, 0.5);
+
+  transition: 0.4s ease;
+}
+.formulario form:hover {
+  transform: translateY(-6px);
+}
+.form-content-enter {
+  animation: switchForm .45s ease;
+}
 .formulario h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  font-size: 2.4rem;
+
+  font-weight: 800;
+
+  color: #111;
+
+  line-height: 1.1;
+
+  margin-bottom: 0.5rem;
 }
 
 .formulario input {
@@ -121,6 +157,27 @@
   cursor: pointer;
 
   transition: 0.3s;
+}
+.formulario button[type="submit"] {
+  margin-top: 1rem;
+
+  height: 58px;
+
+  border-radius: 14px;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  box-shadow:
+    0 12px 30px rgba(245,180,0,.25);
+
+  transition: all .35s ease;
+}.formulario button[type="submit"]:hover {
+
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 18px 40px rgba(245,180,0,.35);
 }
 
 .formulario button:hover {
@@ -171,8 +228,14 @@
   -webkit-appearance: none;
   -moz-appearance: none;
 }
+
+.formulario input:focus,
+.customDate:focus,
 .formulario select:focus {
-  border-bottom: 2px solid #db9f00;
+
+  border-bottom-color: #f5b400;
+
+  transform: translateY(-2px);
 }
 
 .viajero img {
@@ -191,6 +254,7 @@
   max-height: none !important;
   overflow: hidden;
   right: -5%;
+   animation: travellerReveal 1.2s ease .5s both;
 }
 
 .fondo-traveller {
@@ -204,12 +268,16 @@
   z-index: 1;
   opacity: 0.95;
   object-fit: contain;
+    animation:
+    rotateSlow 40s linear infinite,
+    pulseBackground 8s ease-in-out infinite;
+  
 }
 .carrusel-container {
-position: relative;
+  position: relative;
   width: 100%;
   max-width: 550px;
-  height: 650px;           
+  height: 650px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -223,13 +291,23 @@ position: relative;
   max-width: 550px;
   height: auto;
   object-fit: contain;
+
   opacity: 0;
-  transition: opacity 1s ease-in-out;
+
+  transform: scale(.96) translateY(15px);
+
+  transition:
+    opacity 1.2s ease,
+    transform 1.2s cubic-bezier(.22,.61,.36,1);
+
   z-index: 2;
 }
 
 .carrusel-image.active {
   opacity: 1;
+
+  transform: scale(1) translateY(0);
+
   z-index: 3;
 }
 
@@ -251,16 +329,15 @@ position: relative;
 .carrusel-image.image-pareja {
   max-width: 600px !important;
   filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.15));
-  transform:translateY(-10%);
+  transform: translateY(-10%);
   position: relative;
   left: 5%;
 }
 
 .carrusel-image.image-asiatica {
-  left: 10% !important;           
+  left: 10% !important;
   max-width: 550px !important;
-  transform:translateY(-15%) ;
-
+  transform: translateY(-15%);
 }
 .carrusel-image.image-pareja2 {
   width: 110%;
@@ -317,7 +394,7 @@ position: relative;
   border-radius: 50%;
 }
 .react-datepicker__current-month {
-color: #000 !important;
+  color: #000 !important;
   font-size: 1.1rem !important;
   font-weight: 700 !important;
   margin-bottom: 12px !important;
@@ -340,14 +417,6 @@ color: #000 !important;
   color: #333 !important;
   font-weight: 500 !important;
 }
-/*.react-datepicker__month-dropdown,
-.react-datepicker__year-dropdown {
-  background-color: white !important;
-
-  border: 1px solid #ddd !important;
-
-  border-radius: 10px !important;
-}*/
 
 /* ================= TOGGLE MINIMALISTA ================= */
 
@@ -403,4 +472,247 @@ color: #000 !important;
 
 .toggle-btn.active::after {
   width: 100%;
+}.question-textarea {
+  width: 100%;
+
+  min-height: 160px;
+
+  padding: 1rem 1.2rem;
+
+  border: 1px solid rgba(0, 0, 0, 0.08);
+
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.65);
+
+  font-family: "Playball", cursive;
+  font-size: 1rem;
+  line-height: 1.7;
+
+  color: #333;
+
+  resize: none;
+
+  outline: none;
+
+  transition: all 0.3s ease;
+}
+
+.question-textarea::placeholder {
+  color: #999;
+}
+
+.question-textarea:focus {
+  border-color: #f5b400;
+
+  box-shadow: 0 0 0 4px rgba(245, 180, 0, 0.12);
+
+  transform: translateY(-2px);
+}
+.formulario form > * {
+  animation: fieldReveal .7s ease both;
+}
+
+.formulario form > *:nth-child(1) { animation-delay: .2s; }
+.formulario form > *:nth-child(2) { animation-delay: .3s; }
+.formulario form > *:nth-child(3) { animation-delay: .4s; }
+.formulario form > *:nth-child(4) { animation-delay: .5s; }
+.formulario form > *:nth-child(5) { animation-delay: .6s; }
+.formulario form > *:nth-child(6) { animation-delay: .7s; }
+@media (max-width: 768px) {
+
+  /* HERO */
+
+  .Encabezado {
+    height: 55vh;
+    min-height: 420px;
+
+    background-position: 60% center;
+  }
+
+  .titles {
+    padding: 0 1.5rem;
+  }
+
+  .subtitulo {
+    font-size: clamp(2.2rem, 9vw, 3.5rem);
+
+    left: 0;
+    text-align: center;
+  }
+
+  .titulo {
+    font-size: clamp(1.8rem, 7vw, 2.8rem);
+
+    right: 0;
+    text-align: center;
+  }
+
+  /* FORM SECTION */
+
+  .Formulario {
+    padding: 3rem 1.5rem;
+
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* OCULTAR VIAJERO COMPLETO */
+
+  .viajero {
+    display: none;
+  }
+
+  /* FORMULARIO */
+
+  .apartado.formulario {
+    width: 100%;
+    max-width: 500px;
+
+    margin: 0 auto;
+  }
+
+  .formulario form {
+    width: 100%;
+    max-width: none;
+
+    padding: 2rem;
+  }
+
+  .formulario h1 {
+    text-align: center;
+  }
+
+  .form-toggle {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}@media (max-width: 480px) {
+
+  .Formulario {
+    padding: 2.5rem 1rem;
+  }
+
+  .formulario form {
+    padding: 1.75rem;
+  }
+
+  .subtitulo {
+    font-size: 2rem;
+  }
+
+  .titulo {
+    font-size: 1.6rem;
+  }
+
+  .toggle-btn {
+    font-size: .9rem;
+  }
+}@keyframes heroReveal {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+    filter: blur(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes formReveal {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes travellerReveal {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes subtitleReveal {
+  from {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes titleReveal {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes switchForm {
+  from {
+    opacity: 0;
+    transform:
+      translateY(15px)
+      scale(.98);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+@keyframes pulseBackground {
+  0% {
+    opacity: .85;
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform:
+      translate(-50%, -50%)
+      scale(1.04);
+  }
+
+  100% {
+    opacity: .85;
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+}
+@keyframes fieldReveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

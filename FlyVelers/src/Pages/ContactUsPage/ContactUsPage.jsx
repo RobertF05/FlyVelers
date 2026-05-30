@@ -201,7 +201,11 @@ ${formData.question}
             </div>
 
             {/* FORM */}
-            <form onSubmit={sendWhatsApp}>
+            <form
+              key={activeForm}
+              onSubmit={sendWhatsApp}
+              className="form-content-enter"
+            >
               <h1>
                 {activeForm === "request"
                   ? "Request Information"
