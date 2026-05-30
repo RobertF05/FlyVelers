@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./services.css";
 import Navbar from "../../components/navbar.jsx";
 import Footer from "../../components/footer.jsx";
@@ -86,10 +86,33 @@ const servicePlans = [
 
 const Services = () => {
   const [activePlan, setActivePlan] = useState(null);
+  const [hideNavbar, setHideNavbar] = useState(false);
+  const plansSectionRef = useRef(null);
 
   const togglePlan = (planId) => {
     setActivePlan((currentPlan) => (currentPlan === planId ? null : planId));
   };
+
+  useEffect(() => {
+    const plansSection = plansSectionRef.current;
+
+    if (!plansSection) {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setHideNavbar(entry.isIntersecting);
+      },
+      {
+        threshold: 0.18,
+      }
+    );
+
+    observer.observe(plansSection);
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="services-container">
@@ -97,7 +120,7 @@ const Services = () => {
         className="services-hero"
         style={{ backgroundImage: `url(${auroras})` }}
       >
-        <Navbar />
+        <Navbar hidden={hideNavbar} />
 
         <div className="hero-overlay">
           <div className="services-hero-intro">
@@ -117,7 +140,7 @@ const Services = () => {
         </div>
       </section>
 
-      <section className="services-section">
+      <section ref={plansSectionRef} className="services-section">
         <div className="bg-shape1"></div>
         <div className="services-section-intro">
           <span className="services-section-chip">See below our subscription plans</span>

@@ -16,13 +16,19 @@ const navItems = [
   { label: 'Reviews', href: '/reviews'},
 ];
 
-function Navbar() {
+function Navbar({ hidden = false }) {
   const { pathname } = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     setMenuOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    if (hidden) {
+      setMenuOpen(false);
+    }
+  }, [hidden]);
 
   useEffect(() => {
     if (!menuOpen) {
@@ -47,7 +53,7 @@ function Navbar() {
 
   return (
     <>
-      <header className={`main-navbar ${menuOpen ? 'menu-open' : ''}`}>
+      <header className={`main-navbar ${menuOpen ? 'menu-open' : ''} ${hidden ? 'is-hidden' : ''}`}>
       <a className="brand" href="/main" aria-label="FlyVelers home">
         <img className="brand-logo" src={logo} alt="FlyVelers logo" />
         <span className="brand-name">FlyVelers</span>

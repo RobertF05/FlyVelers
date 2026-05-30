@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import './blog.css';
 import Navbar from '../../components/navbar.jsx';
 import Footer from '../../components/footer.jsx';
 
-import divider from '../../assets/bottom-shape.webp.png';
+import blogSideEcoTravelBg from '../../assets/blog-side-eco-travel-bg.png';
+import sanJuanDelSur from '../../assets/SanJuanDelSur-4k.png';
 import scotland from '../../assets/Scotland.png';
 import costaRica from '../../assets/Costa Rica.jpg';
 import nicaragua from '../../assets/Nicaragua.jpg';
@@ -181,26 +182,48 @@ function Blog() {
   const [selectedPost, setSelectedPost] = useState(null);
   const [pageReady, setPageReady] = useState(false);
   const [visibleSections, setVisibleSections] = useState({});
+  const [heroIntroPhase, setHeroIntroPhase] = useState('enter');
   const sectionRefs = useRef([]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
-    const frameId = window.requestAnimationFrame(() => {
-      setPageReady(true);
-    });
+    const exitTimer = window.setTimeout(() => {
+      setHeroIntroPhase('exit');
+    }, 2400);
 
-    return () => window.cancelAnimationFrame(frameId);
+    const hideTimer = window.setTimeout(() => {
+      setHeroIntroPhase('hidden');
+      setPageReady(true);
+    }, 3400);
+
+    return () => {
+      window.clearTimeout(exitTimer);
+      window.clearTimeout(hideTimer);
+    };
   }, []);
 
   useEffect(() => {
-    if (!selectedPost) {
+    const frameId = window.requestAnimationFrame(() => {
+      if (heroIntroPhase === 'hidden') {
+        setPageReady(true);
+      }
+    });
+
+    return () => window.cancelAnimationFrame(frameId);
+  }, [heroIntroPhase]);
+
+  useEffect(() => {
+    const shouldLockBody = heroIntroPhase !== 'hidden' || Boolean(selectedPost);
+
+    if (!shouldLockBody) {
       document.body.style.overflow = '';
       return undefined;
     }
 
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
     const handleEscape = (event) => {
@@ -212,10 +235,10 @@ function Blog() {
     window.addEventListener('keydown', handleEscape);
 
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = previousOverflow;
       window.removeEventListener('keydown', handleEscape);
     };
-  }, [selectedPost]);
+  }, [heroIntroPhase, selectedPost]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -251,22 +274,32 @@ function Blog() {
   }, []);
 
   return (
-    <div className={`blog-page ${pageReady ? 'page-ready' : ''}`}>
-      <section
-        className="blog-hero"
-        style={{ backgroundImage: `url(${scotland})` }}
-      >
+    <div
+      className={`blog-page ${pageReady ? 'page-ready' : ''}`}
+      style={{ '--blog-side-bg': `url(${blogSideEcoTravelBg})` }}
+    >
+      <div className="blog-navbar-shell">
         <Navbar />
+      </div>
 
-        <div className="blog-hero-overlay">
-          <p className="blog-hero-kicker">Find your Way,</p>
-          <h1 className="blog-hero-title">Love Your Stay</h1>
-        </div>
+      {heroIntroPhase !== 'hidden' ? (
+        <section
+          className={`blog-hero-intro blog-hero-intro-${heroIntroPhase}`}
+          style={{ backgroundImage: `linear-gradient(180deg, rgba(12, 28, 53, 0.05), rgba(12, 28, 53, 0.16)), url(${scotland})` }}
+        >
+          <div className="blog-hero-overlay">
+            <div className="blog-hero-copy">
+              <p className="blog-hero-kicker">Find your Way,</p>
+              <h1 className="blog-hero-title">Love Your Stay</h1>
+            </div>
+          </div>
+        </section>
+      ) : null}
 
-        <img className="blog-divider" src={divider} alt="" aria-hidden="true" />
-      </section>
-
-      <main className="blog-content">
+      <main
+        className={`blog-content ${heroIntroPhase === 'enter' ? 'blog-content-hidden' : 'blog-content-visible'}`}
+        style={{ '--recommended-trips-bg': `url(${sanJuanDelSur})` }}
+      >
         <header className="blog-intro">
           <h2>Recommended Trips For Your</h2>
         </header>
@@ -285,33 +318,38 @@ function Blog() {
 
             <div className="blog-grid">
               {section.posts.map((post, postIndex) => (
-                <button
-                  key={post.title}
-                  type="button"
-                  className="blog-card"
-                  onClick={() => setSelectedPost(post)}
-                  style={{ '--card-delay': `${postIndex * 0.1}s` }}
-                >
-                  <div className="blog-card-media">
-                    <img src={post.image} alt={post.title} className="blog-card-image" />
-                    <div className="blog-card-hover">
-                      <span>Read article</span>
-                    </div>
-                  </div>
+                <div key={post.title} className="blog-card-slot">
+                  <div className="blog-card-frame" aria-hidden="true" />
 
-                  <div className="blog-card-body">
-                    <h4>{post.title}</h4>
-                    <span className="blog-card-line" aria-hidden="true" />
-                    <p>{post.description}</p>
-                  </div>
-                </button>
+                  <button
+                    type="button"
+                    className="blog-card"
+                    onClick={() => setSelectedPost(post)}
+                    style={{ '--card-delay': `${postIndex * 0.1}s` }}
+                  >
+                    <div className="blog-card-media">
+                      <img src={post.image} alt={post.title} className="blog-card-image" />
+                      <div className="blog-card-hover">
+                        <span>Read article</span>
+                      </div>
+                    </div>
+
+                    <div className="blog-card-body">
+                      <h4>{post.title}</h4>
+                      <span className="blog-card-line" aria-hidden="true" />
+                      <p>{post.description}</p>
+                    </div>
+                  </button>
+                </div>
               ))}
             </div>
           </section>
         ))}
       </main>
 
-      <Footer />
+      <div className={`blog-footer-shell ${heroIntroPhase === 'enter' ? 'blog-footer-shell-hidden' : 'blog-footer-shell-visible'}`}>
+        <Footer />
+      </div>
 
       {selectedPost ? (
         <div
