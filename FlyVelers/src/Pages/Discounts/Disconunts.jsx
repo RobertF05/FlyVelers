@@ -1,6 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlaneDeparture, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { 
+  faPlaneDeparture, 
+  faXmark, 
+  faChevronLeft, 
+  faChevronRight,
+  faPause,
+  faPlay
+} from '@fortawesome/free-solid-svg-icons';
 import Navbar from '../../components/navbar.jsx';
 import './Discounts.css';
 
@@ -88,7 +95,111 @@ const topDeals = [
 
 function Discounts() {
   const [activePopup, setActivePopup] = useState(null);
+  const [isTopDealsVisible, setIsTopDealsVisible] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const autoPlayRef = useRef(null);
   const popupRef = useRef(null);
+  const topDealsRef = useRef(null);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+
+  // Función para cambiar de slide
+  const goToSlide = useCallback((index) => {
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    let newIndex = index;
+    
+    if (index < 0) {
+      newIndex = specialOffers.length - 1;
+    } else if (index >= specialOffers.length) {
+      newIndex = 0;
+    }
+    
+    setCurrentSlide(newIndex);
+    
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 500);
+  }, [isTransitioning]);
+
+  const nextSlide = useCallback(() => {
+    goToSlide(currentSlide + 1);
+  }, [currentSlide, goToSlide]);
+
+  const prevSlide = useCallback(() => {
+    goToSlide(currentSlide - 1);
+  }, [currentSlide, goToSlide]);
+
+  // Auto-play
+  useEffect(() => {
+    if (isAutoPlaying) {
+      autoPlayRef.current = setInterval(() => {
+        nextSlide();
+      }, 5000);
+    }
+    
+    return () => {
+      if (autoPlayRef.current) {
+        clearInterval(autoPlayRef.current);
+      }
+    };
+  }, [isAutoPlaying, nextSlide]);
+
+  // Pausar auto-play cuando el usuario interactúa
+  const handleUserInteraction = () => {
+    setIsAutoPlaying(false);
+    // Reiniciar auto-play después de 10 segundos de inactividad
+    setTimeout(() => {
+      setIsAutoPlaying(true);
+    }, 10000);
+  };
+
+  // Touch events para swipe en móvil
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+    handleUserInteraction();
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX.current - touchEndX.current > 50) {
+      nextSlide();
+    }
+    
+    if (touchStartX.current - touchEndX.current < -50) {
+      prevSlide();
+    }
+  };
+
+  // Intersection Observer para activar el efecto backdrop en Top Deals
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsTopDealsVisible(true);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    if (topDealsRef.current) {
+      observer.observe(topDealsRef.current);
+    }
+
+    return () => {
+      if (topDealsRef.current) {
+        observer.unobserve(topDealsRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const handlePointerDown = (event) => {
@@ -113,8 +224,8 @@ function Discounts() {
   }, []);
 
   const openPopup = (event, item, category) => {
-    const popupWidth = 300;
-    const popupHeight = 210;
+    const popupWidth = 320;
+    const popupHeight = 240;
     const padding = 18;
     const left = Math.min(
       Math.max(event.clientX + 18, padding),
@@ -147,52 +258,103 @@ function Discounts() {
       </section>
 
       <main className="discounts-content">
-        <section className="discounts-intro">
-          <h2>Beauty Places</h2>
-        </section>
+        <div className="discounts-intro">
+          <h2>Exclusive Discounts</h2>
+        </div>
 
         <section className="special-offers-section">
-          <h3>Special Offers</h3>
-          <div className="special-offers-grid">
-            {specialOffers.map((offer) => (
-              <button
-                key={offer.id}
-                type="button"
-                className={`special-offer-card special-offer-card-${offer.theme}`}
-                onClick={(event) => openPopup(event, offer, 'Special offer')}
+          <div className="special-offers-header">
+            <h3>Special Offers</h3>
+            <div className="carousel-controls">
+              <button 
+                className="carousel-btn pause-btn"
+                onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+                aria-label={isAutoPlaying ? 'Pause' : 'Play'}
               >
-                <img src={offer.image} alt={offer.title} />
-                <div className="special-offer-overlay">
-                  {offer.id === 'special-1' ? (
-                    <div className="special-offer-copy special-offer-copy-left">
-                      <span className="special-offer-eyebrow">{offer.eyebrow}</span>
-                      <strong className="special-offer-main-off">{offer.label}</strong>
-                      <span className="special-offer-caption">{offer.caption}</span>
-                    </div>
-                  ) : null}
-
-                  {offer.id === 'special-2' ? (
-                    <div className="special-offer-copy special-offer-copy-center">
-                      <span className="special-offer-eyebrow">{offer.eyebrow}</span>
-                      <strong className="special-offer-heading">{offer.caption}</strong>
-                    </div>
-                  ) : null}
-
-                  {offer.id === 'special-3' ? (
-                    <div className="special-offer-copy special-offer-copy-right">
-                      <strong className="special-offer-heading">{offer.eyebrow}</strong>
-                    </div>
-                  ) : null}
-                </div>
+                <FontAwesomeIcon icon={isAutoPlaying ? faPause : faPlay} />
               </button>
-            ))}
+              <button 
+                className="carousel-btn"
+                onClick={() => { prevSlide(); handleUserInteraction(); }}
+                aria-label="Previous slide"
+              >
+                <FontAwesomeIcon icon={faChevronLeft} />
+              </button>
+              <button 
+                className="carousel-btn"
+                onClick={() => { nextSlide(); handleUserInteraction(); }}
+                aria-label="Next slide"
+              >
+                <FontAwesomeIcon icon={faChevronRight} />
+              </button>
+            </div>
+          </div>
+
+          <div 
+            className="special-offers-carousel"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
+            <div 
+              className="special-offers-track"
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            >
+              {specialOffers.map((offer, index) => (
+                <button
+                  key={offer.id}
+                  type="button"
+                  className={`special-offer-card special-offer-card-${offer.theme} ${index === currentSlide ? 'active' : ''}`}
+                  onClick={(event) => openPopup(event, offer, 'Special offer')}
+                >
+                  <img src={offer.image} alt={offer.title} />
+                  <div className="special-offer-overlay">
+                    {offer.id === 'special-1' ? (
+                      <div className="special-offer-copy special-offer-copy-left">
+                        <span className="special-offer-eyebrow">{offer.eyebrow}</span>
+                        <strong className="special-offer-main-off">{offer.label}</strong>
+                        <span className="special-offer-caption">{offer.caption}</span>
+                      </div>
+                    ) : null}
+
+                    {offer.id === 'special-2' ? (
+                      <div className="special-offer-copy special-offer-copy-center">
+                        <span className="special-offer-eyebrow">{offer.eyebrow}</span>
+                        <strong className="special-offer-heading">{offer.caption}</strong>
+                      </div>
+                    ) : null}
+
+                    {offer.id === 'special-3' ? (
+                      <div className="special-offer-copy special-offer-copy-right">
+                        <strong className="special-offer-heading">{offer.eyebrow}</strong>
+                      </div>
+                    ) : null}
+                  </div>
+                </button>
+              ))}
+            </div>
+
+            {/* Indicadores de slide */}
+            <div className="carousel-dots">
+              {specialOffers.map((_, index) => (
+                <button
+                  key={index}
+                  className={`carousel-dot ${index === currentSlide ? 'active' : ''}`}
+                  onClick={() => { goToSlide(index); handleUserInteraction(); }}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </section>
 
-        <section className="top-deals-section">
+        <section 
+          className="top-deals-section" 
+          ref={topDealsRef}
+        >
           <h3>Top Deals Worldwide</h3>
 
-          <div className="top-deals-scene">
+          <div className={`top-deals-scene ${isTopDealsVisible ? 'visible' : ''}`}>
             <div className="texture-block texture-block-primary">
               <img src={BackgroundDiscounts3} alt="" aria-hidden="true" />
             </div>

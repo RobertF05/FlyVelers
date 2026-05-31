@@ -1,124 +1,157 @@
+/* ----- DISCOUNTS PAGE - ESTILO PARTNERS ----- */
 .discounts-page {
+  background: #09111b;
+  color: #f8fafc;
   min-height: 100vh;
-  background:
-    linear-gradient(180deg, #ffffff 0 270px, #f1f0fb 270px 74%, #ffffff 74% 100%);
-  color: #1c2240;
 }
 
+/* ----- HERO SECTION ----- */
 .discounts-hero {
-  position: relative;
-  min-height: 620px;
-  background-position: center;
-  background-repeat: no-repeat;
+  min-height: 390px;
   background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+  z-index: 1;
+}
+
+.discounts-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 246, 235, 0.12) 0%, rgba(17, 23, 37, 0.2) 100%);
 }
 
 .discounts-hero::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -1px;
-  height: 64px;
-  background:
-    radial-gradient(circle at 12px -3px, transparent 21px, #ffffff 22px) 0 0 / 32px 100% repeat-x,
-    linear-gradient(#ffffff, #ffffff);
-  z-index: 2;
+  bottom: -28px;
+  height: 96px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,64L80,69C160,74,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z" fill="%2309111b" opacity="0.95"/></svg>');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .discounts-hero-overlay {
-  min-height: 620px;
-  padding: 160px 72px 120px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.06));
+  position: relative;
+  z-index: 1;
+  width: min(1280px, 100%);
+  padding: 120px 80px 110px;
 }
 
 .discounts-hero-copy {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 160px;
-}
-
-.discounts-line {
-  margin: 0;
-  opacity: 0;
-  animation-duration: 1.1s;
-  animation-fill-mode: forwards;
-  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: grid;
+  justify-items: start;
+  overflow: hidden;
 }
 
 .discounts-line-script {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(3.2rem, 6vw, 5.8rem);
-  font-style: italic;
-  font-weight: 700;
-  color: #181818;
-  letter-spacing: -0.04em;
-  animation-name: discountsHeroScriptIn;
+  font-size: 6rem;
+  font-family: 'Playball', cursive;
+  font-weight: 400;
+  line-height: 0.95;
+  color: #f6dfc2;
+  text-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  transform: translateY(28px) rotate(-1.5deg);
+  animation: discountsHeroTextReveal 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
 }
 
 .discounts-line-bold {
-  align-self: flex-end;
-  margin-right: 10px;
-  font-size: clamp(3.4rem, 5.7vw, 5.4rem);
+  margin-left: 165px;
+  font-size: clamp(3.6rem, 8vw, 5rem);
   line-height: 0.95;
-  font-weight: 800;
+  font-weight: 900;
   color: #ffffff;
-  text-shadow: 0 16px 34px rgba(29, 46, 66, 0.28);
-  animation-name: discountsHeroBoldIn;
-  animation-delay: 0.18s;
+  text-shadow: 0 18px 35px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform: translateY(34px) scale(0.98);
+  animation:
+    discountsHeroTextReveal 0.82s cubic-bezier(0.22, 1, 0.36, 1) 0.34s forwards,
+    discountsHeroTitleGlow 1.55s ease 0.98s both;
 }
 
+/* ----- CONTENIDO PRINCIPAL ----- */
 .discounts-content {
   position: relative;
-  z-index: 3;
-  padding: 10px 34px 0;
+  padding: 38px 0 80px;
+  isolation: isolate;
 }
 
-.discounts-intro h2,
-.special-offers-section h3,
-.top-deals-section h3 {
-  margin: 0;
-  color: #24262f;
+.discounts-intro {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin-bottom: 48px;
 }
 
 .discounts-intro h2 {
-  font-size: 3rem;
-  font-weight: 700;
+  margin: 0;
+  font-size: clamp(2.3rem, 4vw, 3.6rem);
+  font-weight: 900;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ffffff, #94a3b8);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
+/* ----- SPECIAL OFFERS SECTION ----- */
 .special-offers-section {
-  margin-top: 20px;
+  position: relative;
+  margin-bottom: 120px;
+  padding: 0 24px;
 }
 
 .special-offers-section h3,
 .top-deals-section h3 {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 800;
-  color: #11184a;
+  color: #ffffff;
+  margin-bottom: 32px;
+  position: relative;
+  display: inline-block;
+}
+
+.special-offers-section h3::after,
+.top-deals-section h3::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 0;
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg, #f6dfc2, #94a3b8);
+  border-radius: 4px;
 }
 
 .special-offers-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 28px;
+  gap: 24px;
+  margin-top: 40px;
 }
 
-.special-offer-card,
-.deal-card {
+.special-offer-card {
   position: relative;
   border: 0;
   padding: 0;
   background: transparent;
   cursor: pointer;
-  transition: transform 0.24s ease, box-shadow 0.24s ease;
-}
-
-.special-offer-card {
+  border-radius: 24px;
   overflow: hidden;
-  border-radius: 12px;
-  min-height: 146px;
+  transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  aspect-ratio: 4 / 3;
+  box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.4);
 }
 
 .special-offer-card img {
@@ -126,12 +159,28 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.special-offer-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 30px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.special-offer-card:hover img {
+  transform: scale(1.08);
 }
 
 .special-offer-overlay {
   position: absolute;
   inset: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%);
   pointer-events: none;
+  transition: background 0.3s ease;
+}
+
+.special-offer-card:hover .special-offer-overlay {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.8) 100%);
 }
 
 .special-offer-copy {
@@ -139,90 +188,124 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  max-width: 54%;
+  max-width: 65%;
   text-align: left;
+  z-index: 2;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
 }
 
 .special-offer-copy-left {
-  top: 42px;
-  left: 20px;
+  top: 32px;
+  left: 24px;
   color: #fff9ef;
 }
 
 .special-offer-copy-center {
-  top: 70px;
-  left: 20px;
+  top: 50%;
+  left: 24px;
+  transform: translateY(-50%);
+  color: #ffffff;
+  max-width: 55%;
+}
+
+.special-offer-copy-right {
+  top: 32px;
+  left: 24px;
   color: #ffffff;
   max-width: 50%;
 }
 
-.special-offer-copy-right {
-  top: 30px;
-  left: 26px;
-  color: #171717;
-  max-width: 46%;
-}
-
 .special-offer-eyebrow {
-  font-size: 0.88rem;
-  font-weight: 600;
-  line-height: 1.15;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  padding: 4px 12px;
+  border-radius: 40px;
 }
 
 .special-offer-main-off {
-  margin-top: 6px;
+  margin-top: 12px;
   font-size: 2rem;
   line-height: 0.95;
   font-weight: 800;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #fff, #f6dfc2);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 .special-offer-caption {
   margin-top: 8px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 .special-offer-heading {
-  margin-top: 8px;
-  font-size: 1.45rem;
-  line-height: 1.18;
+  margin-top: 12px;
+  font-size: 1.4rem;
+  line-height: 1.2;
   font-weight: 800;
 }
 
-.special-offer-card:hover,
-.deal-card:hover {
-  transform: translateY(-6px) scale(1.03);
-}
-
+/* ----- TOP DEALS SECTION ----- */
 .top-deals-section {
-  margin-top: 84px;
+  position: relative;
+  margin-top: 60px;
+  padding: 0 24px;
 }
 
 .top-deals-scene {
   position: relative;
-  padding: 54px 0 320px;
+  padding: 40px 0 320px;
+  border-radius: 32px;
   overflow: hidden;
+}
+
+.top-deals-scene::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(180deg, rgba(10, 15, 24, 0.12) 0%, rgba(10, 15, 24, 0.22) 100%);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 32px;
+  opacity: 0;
+  transform: scale(1.03);
+  transition: opacity 1.05s ease, transform 1.4s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.top-deals-scene.visible::before {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .texture-block {
   position: absolute;
   pointer-events: none;
+  z-index: 0;
 }
 
 .texture-block-primary {
-  top: 92px;
+  top: 40px;
   left: 0;
-  width: 54%;
-  max-width: 760px;
-  opacity: 0.9;
+  width: 50%;
+  max-width: 600px;
+  opacity: 0.3;
+  filter: blur(3px);
 }
 
 .texture-block-primary img {
   display: block;
   width: 100%;
-  mix-blend-mode: multiply;
+  mix-blend-mode: soft-light;
 }
 
 .top-deals-grid {
@@ -235,7 +318,7 @@
   width: min(700px, 100%);
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 70px;
-  margin: 44px auto 72px;
+  margin: 0 auto 72px;
 }
 
 .top-deals-grid-secondary {
@@ -247,17 +330,29 @@
 
 .deal-card {
   width: 100%;
-  max-width: 232px;
+  max-width: 280px;
   margin: 0 auto;
-  border-radius: 16px;
-  background: #ffffff;
-  box-shadow: 0 18px 34px rgba(48, 62, 91, 0.08);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 25px 45px -18px rgba(0, 0, 0, 0.4);
+  transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.deal-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 35px 55px -20px rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .deal-card-image {
-  height: 146px;
+  height: 180px;
   overflow: hidden;
-  border-radius: 16px 16px 0 0;
+  position: relative;
 }
 
 .deal-card-image img {
@@ -265,57 +360,71 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.deal-card:hover .deal-card-image img {
+  transform: scale(1.1);
 }
 
 .deal-card-body {
-  min-height: 112px;
-  padding: 76px 20px 24px;
+  padding: 70px 20px 28px;
+  text-align: center;
 }
 
 .deal-card-body h4 {
   margin: 0;
-  font-size: 1.55rem;
-  color: #172055;
-  font-weight: 500;
+  font-size: 1.6rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff, #cbd5e1);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 .deal-badge {
   position: absolute;
   left: 50%;
-  top: 112px;
+  top: 130px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 86px;
-  height: 86px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
-  background: #4e41d8;
-  color: #ffffff;
+  background: linear-gradient(135deg, #f6dfc2, #d4a574);
+  color: #09111b;
   transform: translateX(-50%);
-  box-shadow: 0 18px 30px rgba(78, 65, 216, 0.28);
-  animation: dealBubbleFloat 3.2s ease-in-out infinite;
+  box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.4);
+  animation: dealBubbleFloat 3s ease-in-out infinite;
+  z-index: 5;
+  border: 2px solid rgba(255, 255, 255, 0.4);
 }
 
 .deal-badge span {
-  font-size: 0.86rem;
+  font-size: 0.7rem;
   line-height: 1;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
+  font-weight: 700;
 }
 
 .deal-badge strong {
-  margin: 6px 0;
-  font-size: 2.1rem;
+  margin: 4px 0;
+  font-size: 2rem;
   line-height: 1;
+  font-weight: 800;
 }
 
+/* ----- COLLAGE DECORATIVO ----- */
 .discounts-collage {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 360px;
+  height: 380px;
   pointer-events: none;
+  z-index: 1;
 }
 
 .collage-color-wash {
@@ -323,121 +432,144 @@
   left: 28px;
   bottom: 72px;
   width: 58%;
-  height: 260px;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(70, 231, 219, 0.62), transparent 52%),
-    radial-gradient(circle at 68% 36%, rgba(255, 143, 111, 0.72), transparent 44%),
-    radial-gradient(circle at 36% 88%, rgba(129, 92, 255, 0.28), transparent 52%);
-  filter: blur(10px);
-  opacity: 0.75;
+  height: 280px;
+  background: radial-gradient(circle at 20% 20%, rgba(246, 223, 194, 0.25), transparent 52%),
+    radial-gradient(circle at 68% 36%, rgba(212, 165, 116, 0.3), transparent 44%),
+    radial-gradient(circle at 36% 88%, rgba(148, 163, 184, 0.2), transparent 52%);
+  filter: blur(20px);
+  opacity: 0.6;
+  animation: gentlePulse 8s infinite alternate;
 }
 
 .collage-bg,
 .collage-person {
   position: absolute;
   display: block;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.3));
 }
 
 .collage-bg-left {
   left: -12px;
   bottom: 0;
   width: min(620px, 58vw);
+  opacity: 0.4;
 }
 
 .collage-bg-center {
   left: 56px;
   bottom: 84px;
   width: min(420px, 34vw);
-  opacity: 0.92;
+  opacity: 0.35;
+  filter: blur(1px);
 }
 
 .collage-person {
   left: 142px;
   bottom: -12px;
   width: min(350px, 31vw);
+  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.3));
+  opacity: 0.7;
 }
 
 .collage-plane {
   position: absolute;
   left: 14px;
   bottom: 138px;
-  font-size: 3rem;
-  color: #4d395f;
+  font-size: 3.5rem;
+  color: #f6dfc2;
   transform: rotate(-12deg);
-  filter: drop-shadow(0 6px 10px rgba(33, 31, 45, 0.22));
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.3));
+  animation: floatPlane 4s ease-in-out infinite;
+  opacity: 0.5;
 }
 
+/* ----- POPUP ----- */
 .discount-popup {
   position: fixed;
   z-index: 12000;
-  width: min(300px, calc(100vw - 36px));
-  padding: 22px 22px 20px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 20px 44px rgba(31, 43, 73, 0.22);
-  border: 1px solid rgba(79, 66, 215, 0.18);
-  backdrop-filter: blur(12px);
+  width: min(320px, calc(100vw - 36px));
+  padding: 24px 24px 22px;
+  border-radius: 28px;
+  background: rgba(9, 17, 27, 0.95);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(246, 223, 194, 0.2);
   transform-origin: top left;
-  animation: popupIn 0.2s ease-out forwards;
+  animation: popupIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .discount-popup-close {
   position: absolute;
   top: 12px;
   right: 12px;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border: 0;
   border-radius: 50%;
-  background: #eff1ff;
-  color: #37406e;
+  background: rgba(255, 255, 255, 0.1);
+  color: #f6dfc2;
   cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.discount-popup-close:hover {
+  background: rgba(246, 223, 194, 0.2);
+  transform: scale(1.05);
 }
 
 .discount-popup-tag {
   display: inline-flex;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: #edf0ff;
-  color: #4f43d7;
-  font-size: 0.78rem;
+  padding: 6px 14px;
+  border-radius: 40px;
+  background: rgba(246, 223, 194, 0.15);
+  color: #f6dfc2;
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .discount-popup h4 {
-  margin: 16px 0 10px;
-  font-size: 1.4rem;
-  color: #1d244f;
+  margin: 18px 0 12px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
 }
 
 .discount-popup p {
   margin: 0;
-  font-size: 0.96rem;
-  line-height: 1.55;
-  color: #47506d;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #cbd5e1;
 }
 
-@keyframes discountsHeroScriptIn {
+/* ----- ANIMACIONES ----- */
+@keyframes discountsHeroTextReveal {
   from {
     opacity: 0;
-    transform: translate3d(-36px, 24px, 0);
+    transform: translateY(34px) scale(0.98) rotate(-1.5deg);
+    filter: blur(8px);
   }
   to {
     opacity: 1;
-    transform: translate3d(0, 0, 0);
+    transform: translateY(0) scale(1) rotate(0);
+    filter: blur(0);
   }
 }
 
-@keyframes discountsHeroBoldIn {
-  from {
-    opacity: 0;
-    transform: translate3d(38px, 20px, 0);
+@keyframes discountsHeroTitleGlow {
+  0% {
+    text-shadow: 0 18px 35px rgba(0, 0, 0, 0.3);
   }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
+  45% {
+    text-shadow:
+      0 18px 35px rgba(0, 0, 0, 0.3),
+      0 0 26px rgba(246, 223, 194, 0.3);
+  }
+  100% {
+    text-shadow: 0 18px 35px rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -447,14 +579,14 @@
     transform: translateX(-50%) translateY(0) scale(1);
   }
   50% {
-    transform: translateX(-50%) translateY(-6px) scale(1.03);
+    transform: translateX(-50%) translateY(-10px) scale(1.05);
   }
 }
 
 @keyframes popupIn {
   from {
     opacity: 0;
-    transform: scale(0.88);
+    transform: scale(0.85);
   }
   to {
     opacity: 1;
@@ -462,58 +594,75 @@
   }
 }
 
-@media (max-width: 1120px) {
+@keyframes gentlePulse {
+  0% {
+    opacity: 0.4;
+    filter: blur(20px);
+  }
+  100% {
+    opacity: 0.7;
+    filter: blur(24px);
+  }
+}
+
+@keyframes floatPlane {
+  0%,
+  100% {
+    transform: rotate(-12deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-8deg) translateY(-8px);
+  }
+}
+
+/* ----- RESPONSIVE ----- */
+@media (max-width: 1080px) {
   .discounts-hero-overlay {
-    padding: 150px 34px 110px;
+    padding: 132px 32px 110px;
   }
 
   .discounts-line-bold {
-    align-self: flex-start;
-    margin-left: 90px;
-  }
-
-  .top-deals-grid-secondary {
-    gap: 28px;
+    margin-left: 72px;
   }
 }
 
 @media (max-width: 860px) {
-  .discounts-page {
-    background:
-      linear-gradient(180deg, #ffffff 0 240px, #f1f0fb 240px 72%, #ffffff 72% 100%);
-  }
-
   .discounts-hero {
-    min-height: 520px;
+    min-height: 320px;
   }
 
   .discounts-hero-overlay {
-    min-height: 520px;
-    padding: 170px 22px 96px;
+    padding: 100px 20px 80px;
   }
 
-  .discounts-hero-copy {
-    gap: 72px;
+  .discounts-hero::after {
+    bottom: -18px;
+    height: 64px;
+  }
+
+  .discounts-line-script {
+    font-size: 3rem;
   }
 
   .discounts-line-bold {
-    align-self: flex-start;
     margin-left: 0;
+    font-size: 3.2rem;
   }
 
   .discounts-content {
-    padding: 18px 18px 0;
+    padding: 28px 0 40px;
   }
 
-  .discounts-intro h2 {
-    font-size: 2.2rem;
+  .special-offers-section,
+  .top-deals-section {
+    padding: 0 20px;
   }
 
   .special-offers-grid,
   .top-deals-grid-featured,
   .top-deals-grid-secondary {
     grid-template-columns: 1fr;
-    gap: 18px;
+    gap: 24px;
   }
 
   .top-deals-grid-featured,
@@ -526,9 +675,14 @@
     padding-bottom: 280px;
   }
 
-  .texture-block-primary {
-    width: 100%;
-    opacity: 0.42;
+  .special-offer-copy,
+  .special-offer-copy-center,
+  .special-offer-copy-right {
+    max-width: 65%;
+  }
+
+  .deal-card {
+    max-width: 260px;
   }
 
   .collage-bg-left {
@@ -544,10 +698,204 @@
     left: 70px;
     width: 54vw;
   }
+}
 
-  .special-offer-copy,
-  .special-offer-copy-center,
-  .special-offer-copy-right {
-    max-width: 52%;
+@media (max-width: 560px) {
+  .deal-badge {
+    width: 70px;
+    height: 70px;
+    top: 110px;
+  }
+
+  .deal-badge strong {
+    font-size: 1.6rem;
+  }
+
+  .deal-badge span {
+    font-size: 0.6rem;
+  }
+
+  .deal-card-body {
+    padding-top: 58px;
+  }
+
+  .special-offer-heading {
+    font-size: 1.2rem;
+  }
+
+  .special-offer-main-off {
+    font-size: 1.6rem;
+  }
+
+  .special-offer-eyebrow {
+    font-size: 0.65rem;
+  }
+}
+
+/* ----- CARRUSEL SPECIAL OFFERS ----- */
+.special-offers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.special-offers-header h3 {
+  margin-bottom: 0;
+}
+
+.carousel-controls {
+  display: flex;
+  gap: 12px;
+}
+
+.carousel-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f6dfc2;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.carousel-btn:hover {
+  background: rgba(246, 223, 194, 0.2);
+  transform: scale(1.05);
+  border-color: rgba(246, 223, 194, 0.4);
+}
+
+.carousel-btn:active {
+  transform: scale(0.95);
+}
+
+.pause-btn {
+  background: rgba(246, 223, 194, 0.15);
+}
+
+.special-offers-carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 24px;
+}
+
+.special-offers-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  will-change: transform;
+}
+
+/* Estilos responsive para las tarjetas del carrusel */
+.special-offer-card {
+  flex: 0 0 100%;
+  min-width: 0;
+  /* Altura dinámica según el viewport */
+  height: clamp(280px, 35vh, 420px);
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+}
+
+/* Para pantallas muy grandes */
+@media (min-width: 1400px) {
+  .special-offer-card {
+    height: clamp(320px, 32vh, 380px);
+  }
+}
+
+/* Para laptops estándar */
+@media (min-width: 1024px) and (max-width: 1399px) {
+  .special-offer-card {
+    height: clamp(300px, 38vh, 400px);
+  }
+}
+
+/* Asegurar que las imágenes cubran bien el espacio */
+.special-offer-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 16px 0;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.carousel-dot.active {
+  width: 28px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #f6dfc2, #d4a574);
+}
+
+.carousel-dot:hover {
+  background: rgba(246, 223, 194, 0.6);
+  transform: scale(1.2);
+}
+
+/* Ajustes responsivos para el carrusel */
+@media (max-width: 860px) {
+  .special-offers-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .carousel-controls {
+    align-self: flex-end;
+  }
+  
+  .carousel-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+  }
+  
+  .special-offer-card {
+    height: clamp(280px, 45vh, 380px);
+  }
+  
+  .carousel-dots {
+    gap: 8px;
+  }
+  
+  .carousel-dot {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .carousel-dot.active {
+    width: 24px;
+  }
+}
+
+/* Para móviles pequeños */
+@media (max-width: 560px) {
+  .special-offer-card {
+    height: clamp(240px, 40vh, 320px);
   }
 }
