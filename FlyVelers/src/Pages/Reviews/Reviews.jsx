@@ -10,7 +10,6 @@ import mujer2 from '../../assets/mujer2.png';
 
 import maldivas from '../../assets/maldivas.png';
 import maldivas2 from '../../assets/maldivas2.png';
-import divider from '../../assets/bottom-shape.webp.png';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
@@ -75,12 +74,6 @@ const Reviews = () => {
           </div>
         </div>
 
-        <img
-          className="reviews-divider"
-          src={divider}
-          alt=""
-          aria-hidden="true"
-        />
       </section>
 
       {/* REVIEWS */}
@@ -88,8 +81,6 @@ const Reviews = () => {
         className="reviews-section"
         style={{ backgroundImage: `url(${maldivas2})` }}
       >
-        <div className="reviews-overlay"></div>
-
         <div className="reviews-container">
           <div className="reviews-header">
             <h2>Traveler’s Reviews</h2>

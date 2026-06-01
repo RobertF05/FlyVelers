@@ -10,6 +10,42 @@
   background-size: cover;
   background-position: center;
   position: relative;
+  isolation: isolate;
+  overflow: visible;
+  z-index: 1;
+}
+
+.Encabezado::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(180deg, rgba(8, 32, 42, 0.24), rgba(8, 32, 42, 0.5)),
+    radial-gradient(circle at center, rgba(255, 217, 153, 0.18), transparent 44%);
+}
+
+.Encabezado > * {
+  position: relative;
+  z-index: 1;
+}
+
+.Encabezado::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -42px;
+  left: 0;
+  z-index: 0;
+  height: clamp(88px, 10vw, 136px);
+  background-image: url("../../assets/contact-divider-ai-cropped.png");
+  background-repeat: no-repeat;
+  background-position: center 54%;
+  background-size: cover;
+  pointer-events: none;
+  opacity: 0.98;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 78%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 78%, transparent 100%);
 }
 
 .titles {
@@ -25,7 +61,7 @@
   text-align: center;
 
   color: white;
-    animation: heroReveal 1.2s ease forwards;
+  animation: heroReveal 1.2s ease forwards;
 }
 .apartado.formulario {
   animation: formReveal 1s ease .3s both;
@@ -55,21 +91,14 @@
   animation: titleReveal 1s ease .7s forwards;
 }
 
-.divider {
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-
-  width: 100%;
-}
-
 .Formulario {
   position: relative;
+  z-index: 0;
 
   width: 100%;
   min-height: 100vh;
 
-  padding: 6rem 8%;
+  padding: 6.5rem 8% 6rem;
 
   display: flex;
   align-items: center;
@@ -79,12 +108,9 @@
   overflow: hidden;
 
   background:
-    radial-gradient(
-      circle at left top,
-      rgba(245, 180, 0, 0.08),
-      transparent 35%
-    ),
-    #f5f5f5;
+    radial-gradient(circle at 12% 18%, rgba(0, 168, 204, 0.16), transparent 32%),
+    radial-gradient(circle at 85% 20%, rgba(245, 180, 0, 0.18), transparent 30%),
+    linear-gradient(135deg, #f2eadf 0%, #eaf4ef 48%, #dcecf1 100%);
 }
 
 .formulario form {
@@ -530,6 +556,12 @@
     background-position: 60% center;
   }
 
+  .Encabezado::after {
+    bottom: -30px;
+    height: 92px;
+    background-position: center 56%;
+  }
+
   .titles {
     padding: 0 1.5rem;
   }
@@ -551,7 +583,7 @@
   /* FORM SECTION */
 
   .Formulario {
-    padding: 3rem 1.5rem;
+    padding: 4.5rem 1.5rem 3rem;
 
     justify-content: center;
     align-items: center;
@@ -590,7 +622,12 @@
 }@media (max-width: 480px) {
 
   .Formulario {
-    padding: 2.5rem 1rem;
+    padding: 4rem 1rem 2.5rem;
+  }
+
+  .Encabezado::after {
+    bottom: -24px;
+    height: 76px;
   }
 
   .formulario form {

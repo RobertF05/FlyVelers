@@ -6,7 +6,6 @@ import Login from "../../components/login.jsx";
 import fondo from "../../assets/sinfondopng.png";
 import AlpesSuizo from "../../assets/alpes suizos.png";
 import traveller from "../../assets/Traveller.png";
-import divider from "../../assets/bottom-shape.webp.png";
 import pareja from "../../assets/pareja-Flyvelers.png";
 import pareja2 from "../../assets/pareja2.png";
 import asiatica from "../../assets/asiatica.png";
@@ -165,8 +164,6 @@ ${formData.question}
 
             <h1 className="subtitulo">Love Your Stay</h1>
           </div>
-
-          <img className="divider" src={divider} alt="" aria-hidden="true" />
         </section>
 
         {/* =========================
