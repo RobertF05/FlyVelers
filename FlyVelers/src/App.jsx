@@ -1,10 +1,11 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import MainPage from './Pages/MainPage/MainPage.jsx';
 import AboutUsPage from './Pages/AboutUsPage/AboutUsPage.jsx';
 import ContactUsPage from './Pages/ContactUsPage/ContactUsPage.jsx';
 import Services from './Pages/services/services.jsx';
 import Partners from './Pages/Partners/Partners.jsx';
 import Login from './components/login.jsx'
+import Navbar from './components/navbar.jsx';
 import Reviews from './Pages/Reviews/Reviews.jsx';
 import Blog from './Pages/Blog/blog.jsx';
 import Discounts from './Pages/Discounts/Disconunts.jsx';
@@ -12,9 +13,13 @@ import RoutesPage from './Pages/Routes/Routes.jsx';
 
 import './App.css';
 
-function App() {
+function AppRoutes() {
+  const { pathname } = useLocation();
+
   return (
-    <Router>
+    <>
+      {pathname !== '/login' ? <Navbar /> : null}
+
       <Routes>
         <Route path="/main" element={<MainPage />} />
         <Route path="/about" element={<AboutUsPage />} />
@@ -30,6 +35,14 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<Navigate to="/main" />} />
       </Routes>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppRoutes />
     </Router>
   );
 }

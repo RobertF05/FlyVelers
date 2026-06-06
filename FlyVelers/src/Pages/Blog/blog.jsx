@@ -1,6 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import './blog.css';
-import Navbar from '../../components/navbar.jsx';
 import Footer from '../../components/footer.jsx';
 
 import blogSideEcoTravelBg from '../../assets/blog-side-eco-travel-bg.png';
@@ -278,10 +277,6 @@ function Blog() {
       className={`blog-page ${pageReady ? 'page-ready' : ''}`}
       style={{ '--blog-side-bg': `url(${blogSideEcoTravelBg})` }}
     >
-      <div className="blog-navbar-shell">
-        <Navbar />
-      </div>
-
       {heroIntroPhase !== 'hidden' ? (
         <section
           className={`blog-hero-intro blog-hero-intro-${heroIntroPhase}`}

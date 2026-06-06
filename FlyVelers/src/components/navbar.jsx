@@ -16,7 +16,7 @@ const navItems = [
   { label: 'Reviews', href: '/reviews'},
 ];
 
-function Navbar({ hidden = false }) {
+function Navbar({ hidden = false, activeLabel = null }) {
   const { pathname } = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -82,7 +82,7 @@ function Navbar({ hidden = false }) {
           <a
             key={item.label}
             className={
-              item.href === pathname
+              item.href === pathname || item.label === activeLabel
                 ? 'navbar-link highlighted'
                 : 'navbar-link'
             }

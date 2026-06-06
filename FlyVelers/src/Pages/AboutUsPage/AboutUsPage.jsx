@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import './AboutUsPage.css';
 
-import Navbar from '../../components/navbar.jsx';
 import Footer from '../../components/footer.jsx';
 
 import heroImage from '../../assets/maldivas.png';
@@ -108,8 +107,6 @@ const AboutUsPage = () => {
 
   return (
     <div className="about-page">
-      <Navbar activeLabel="About Us" />
-
       <div className="about-scroll-stage">
         <section
           className="about-hero"

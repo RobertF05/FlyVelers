@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../../components/navbar.jsx";
 import Footer from "../../components/footer.jsx";
 import Login from "../../components/login.jsx";
 
@@ -157,8 +156,6 @@ ${formData.question}
           className="Encabezado"
           style={{ backgroundImage: `url(${AlpesSuizo})` }}
         >
-          <Navbar />
-
           <div className="titles">
             <h2 className="titulo">Find your Way,</h2>
 

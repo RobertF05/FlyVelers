@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./MainPage.css";
-import Navbar from "../../components/navbar.jsx";
 import Footer from "../../components/footer.jsx";
 
 import maldivas from "../../assets/maldivas.png";
@@ -207,6 +206,7 @@ const MainPage = () => {
   const [isFeaturedDetailOpen, setIsFeaturedDetailOpen] = useState(false);
   const [isMobileFeaturedView, setIsMobileFeaturedView] = useState(false);
   const ctaRef = useRef(null);
+  const carouselTouchStartXRef = useRef(null);
   const [showCTA, setShowCTA] = useState(false);
 
   const selectedFeaturedAttraction = featuredAttractions[selectedFeaturedIndex];
@@ -283,6 +283,31 @@ const MainPage = () => {
     setCurrentSlide((prev) => (prev + 1) % attractions.length);
   };
 
+  const handleCarouselTouchStart = (event) => {
+    carouselTouchStartXRef.current = event.touches[0].clientX;
+  };
+
+  const handleCarouselTouchEnd = (event) => {
+    if (carouselTouchStartXRef.current === null) {
+      return;
+    }
+
+    const touchEndX = event.changedTouches[0].clientX;
+    const swipeDistance = carouselTouchStartXRef.current - touchEndX;
+    carouselTouchStartXRef.current = null;
+
+    if (Math.abs(swipeDistance) < 45) {
+      return;
+    }
+
+    if (swipeDistance > 0) {
+      goToNextSlide();
+      return;
+    }
+
+    goToPreviousSlide();
+  };
+
   const openFeaturedAttractions = (
     featuredId = featuredAttractions[0].id,
     directToDetail = false,
@@ -305,8 +330,6 @@ const MainPage = () => {
   return (
     <div className="main-container">
       <section className="hero" style={{ backgroundImage: `url(${maldivas})` }}>
-        <Navbar />
-
         <div className="hero-overlay">
           <div className="hero-texts">
             <p className="hero-kicker">Curated escapes by FlyVelers</p>
@@ -380,7 +403,11 @@ const MainPage = () => {
             <FontAwesomeIcon icon={faChevronLeft} />
           </button>
 
-          <div className="carousel-viewport">
+          <div
+            className="carousel-viewport"
+            onTouchStart={handleCarouselTouchStart}
+            onTouchEnd={handleCarouselTouchEnd}
+          >
             <div
               className="carousel-track"
               style={{ transform: `translateX(-${currentSlide * 100}%)` }}

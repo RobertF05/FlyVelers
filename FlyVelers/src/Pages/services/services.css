@@ -32,9 +32,6 @@
   mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 72%, transparent 100%);
 }
 
-.services-hero .main-navbar {
-  z-index: 10000;
-}
 .services-hero .hero-overlay {
   position: relative;
   z-index: 2;

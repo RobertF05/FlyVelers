@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import './Partners.css';
-import Navbar from '../../components/navbar.jsx';
 import Footer from '../../components/footer.jsx';
 import partnersDivider from '../../assets/partners-hero-oslo-divider-v2.png';
 import newYork from '../../assets/NewYork.png';
@@ -451,8 +450,6 @@ const Partners = () => {
         className="partners-hero"
         style={{ backgroundImage: `url(${newYork})`, '--partners-divider-image': `url(${partnersDivider})` }}
       >
-        <Navbar activeLabel="Partners" />
-
         <div className="partners-hero-overlay">
           <div className="partners-hero-texts">
             <h2 className="partners-hero-subtitle">Find your Way,</h2>

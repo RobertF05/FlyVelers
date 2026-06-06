@@ -10,7 +10,6 @@ import {
   faUmbrellaBeach,
   faXmark,
 } from '@fortawesome/free-solid-svg-icons';
-import Navbar from '../../components/navbar.jsx';
 import Footer from '../../components/footer.jsx';
 import TravelRoutes1 from '../../assets/TravelRoutes1.png';
 import TravelRoutes2 from '../../assets/TravelRoutes2.png';
@@ -217,10 +216,6 @@ function Routes() {
 
   return (
     <div className="routes-page">
-      <div className="routes-navbar-shell">
-        <Navbar activeLabel="Travel Routes" />
-      </div>
-
       {heroIntroPhase !== 'hidden' ? (
         <section
           className={`routes-hero-intro routes-hero-intro-${heroIntroPhase}`}

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Reviews.css';
 
-import Navbar from '../../components/navbar.jsx';
 import Footer from '../../components/footer.jsx';
 
 import hombre1 from '../../assets/hombre1.png';
@@ -40,6 +39,7 @@ const reviews = [
 
 const Reviews = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const touchStartXRef = useRef(null);
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
@@ -57,16 +57,38 @@ const Reviews = () => {
     setCurrentSlide((prev) => (prev + 1) % reviews.length);
   };
 
+  const handleTouchStart = (event) => {
+    touchStartXRef.current = event.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (event) => {
+    if (touchStartXRef.current === null) {
+      return;
+    }
+
+    const touchEndX = event.changedTouches[0].clientX;
+    const swipeDistance = touchStartXRef.current - touchEndX;
+    touchStartXRef.current = null;
+
+    if (Math.abs(swipeDistance) < 45) {
+      return;
+    }
+
+    if (swipeDistance > 0) {
+      goToNextSlide();
+      return;
+    }
+
+    goToPreviousSlide();
+  };
+
   return (
     <div className="reviews-page">
-
       {/* HERO */}
       <section
         className="reviews-hero"
         style={{ backgroundImage: `url(${maldivas})` }}
       >
-        <Navbar activeLabel="Reviews" />
-
         <div className="reviews-hero-overlay">
           <div className="reviews-hero-texts">
             <h2 className="reviews-hero-subtitle">Find your Way,</h2>
@@ -101,7 +123,11 @@ const Reviews = () => {
               <FontAwesomeIcon icon={faChevronLeft} />
             </button>
 
-            <div className="reviews-viewport">
+            <div
+              className="reviews-viewport"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+            >
               <div
                 className="reviews-track"
                 style={{

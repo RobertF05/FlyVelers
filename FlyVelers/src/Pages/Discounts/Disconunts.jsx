@@ -1,15 +1,8 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faPlaneDeparture, 
-  faXmark, 
-  faChevronLeft, 
-  faChevronRight,
-  faPause,
-  faPlay
-} from '@fortawesome/free-solid-svg-icons';
-import Navbar from '../../components/navbar.jsx';
+import { faBookmark, faHeart, faStar } from '@fortawesome/free-solid-svg-icons';
 import './Discounts.css';
+import Footer from '../../components/footer.jsx';
 
 import Salar from '../../assets/Salar.png';
 import SpecialDiscount1 from '../../assets/SpecialDiscount1.png';
@@ -20,234 +13,167 @@ import TopDeals2 from '../../assets/TopDeals2.png';
 import TopDeals3 from '../../assets/TopDeals3.png';
 import TopDeals4 from '../../assets/TopDeals4.png';
 import TopDeals5 from '../../assets/TopDeals5.png';
+import TravelRoutes4 from '../../assets/TravelRoutes4.jpg';
+import ParisDiscountEnhanced from '../../assets/ParisDiscountEnhanced.png';
 import BackgroundDiscounts1 from '../../assets/BackgroundDiscounts1.png';
 import BackgroundDiscounts2 from '../../assets/BackgroundDiscounts2.png';
 import BackgroundDiscounts3 from '../../assets/BackgroundDiscounts3.png';
+import SingaporeAirport from '../../assets/SingaporeAirport.jpg';
 
-const specialOffers = [
+const sidePromos = [
   {
-    id: 'special-1',
-    title: 'Enjoy Up To 60% OFF',
-    label: '60 % OFF',
-    eyebrow: 'Enjoy Up To',
-    caption: 'on Your Booking',
-    image: SpecialDiscount3,
-    details: 'Book this Nile-style warm weather escape with limited weekly pricing, beach access, and flexible rescheduling.',
-    theme: 'orange',
-  },
-  {
-    id: 'special-2',
-    title: 'Are you ready for a tour to Turkey?',
-    label: '80% Discount',
-    eyebrow: '80% Discount',
-    caption: 'Are you ready for a tour to Turkey?',
-    image: SpecialDiscount2,
-    details: 'Includes panoramic lodging access, sunrise viewpoints, airport transfer, and curated city-night experiences.',
-    theme: 'blue',
-  },
-  {
-    id: 'special-3',
-    title: 'Discover the wow of Europe',
-    eyebrow: 'Discover The Wow Of Europe',
+    id: 'europe-wow',
+    title: 'Discover The Wow Of Europe',
     image: SpecialDiscount1,
-    details: 'A fast-selling European circuit with guided landmarks, boutique hotel nights, and photo-friendly city stops.',
-    theme: 'peach',
+    className: 'discount-side-promo-europe',
+    badge: '-50% Only This Week',
+    summary: 'A compact Europe route with city stays, landmark visits and weekly promotional pricing.',
+    details: [
+      'Boutique hotel nights in selected European cities.',
+      'Guided landmark route with cultural stops.',
+      'Optional airport transfer bundle for faster arrival.',
+    ],
+  },
+  {
+    id: 'turkey',
+    eyebrow: '80% Discount',
+    title: 'Are You Ready For A Tour To Turkey',
+    image: SpecialDiscount2,
+    className: 'discount-side-promo-blue',
+    summary: 'A scenic Turkey tour focused on warm-air balloon views, local dining and curated lodging.',
+    details: [
+      'Flexible tour dates with limited weekly seats.',
+      'Panoramic sightseeing route and local guide support.',
+      'Hotel and transfer options available as package add-ons.',
+    ],
+  },
+  {
+    id: 'week',
+    eyebrow: 'Great deals',
+    title: 'Every Week',
+    caption: 'only in FlyVelers',
+    image: SpecialDiscount3,
+    className: 'discount-side-promo-orange',
+    summary: 'Rotating FlyVelers weekly deals across beaches, city breaks and short premium escapes.',
+    details: [
+      'Fresh weekly destination inventory.',
+      'Short-stay packages and seasonal add-ons.',
+      'Best suited for flexible travelers watching for quick savings.',
+    ],
   },
 ];
 
-const topDeals = [
+const discountCards = [
   {
-    id: 'deal-1',
-    title: 'South America',
-    discount: '39%',
-    image: TopDeals1,
-    details: 'Urban parks, skyline viewpoints, and curated city stays with flight bundles and local transfer support.',
-  },
-  {
-    id: 'deal-2',
-    title: 'Africa',
-    discount: '39%',
+    id: 'egypt',
+    title: 'Egypt',
     image: TopDeals5,
-    details: 'Desert scenery itineraries with boutique lodging, sunset experiences, and flexible departure windows.',
+    price: '$ 1,125',
+    oldPrice: '$ 900',
+    discount: '20%',
+    summary: 'Desert views, warm-weather stays and curated cultural stops in one compact escape.',
+    details: ['Desert route planning', 'Hotel options near key viewpoints', 'Optional guided day trips'],
   },
   {
-    id: 'deal-3',
-    title: 'Europe',
-    discount: '39%',
-    image: TopDeals3,
-    details: 'Classic city architecture, neighborhood walks, and carefully selected hotels close to major attractions.',
+    id: 'cancun',
+    title: 'Paris',
+    image: ParisDiscountEnhanced,
+    price: '$ 500',
+    oldPrice: '$ 300',
+    discount: '40%',
+    summary: 'A Paris city break with landmark views, boutique stays and cultural route planning.',
+    details: ['Eiffel Tower route highlights', 'Central lodging options', 'Museum and cafe recommendations'],
   },
   {
-    id: 'deal-4',
-    title: 'Asia',
-    discount: '39%',
-    image: TopDeals2,
-    details: 'Scenic rail and heritage routes with accommodation bundles and curated sightseeing extras.',
+    id: 'aruba',
+    title: 'Maldives',
+    image: TravelRoutes4,
+    price: '$ 2,000',
+    oldPrice: '$ 1,400',
+    discount: '30%',
+    summary: 'A Maldives island stay built around lagoon views, relaxation and resort convenience.',
+    details: ['Resort-focused itinerary', 'Lagoon and beach access', 'Optional transfer support'],
   },
   {
-    id: 'deal-5',
-    title: 'North America',
-    discount: '39%',
+    id: 'baja',
+    title: 'New York',
     image: TopDeals4,
-    details: 'Iconic waterfront landmarks, golden-hour routes, and package rates built for short premium escapes.',
+    price: '$ 900',
+    oldPrice: '$ 810',
+    discount: '10%',
+    summary: 'A New York waterfront route with skyline views, city access and short-stay value.',
+    details: ['Liberty and skyline viewpoints', 'Urban hotel options', 'Short-stay route planning'],
   },
 ];
+
+const madridOffer = {
+  id: 'madrid',
+  title: 'Vacation in Madrid',
+  image: TopDeals3,
+  price: 'From $138',
+  discount: 'Up to 10 nights',
+  summary:
+    'A Madrid vacation bundle with flexible night options, city sightseeing and central hotel choices.',
+  details: [
+    'Choose 5, 8 or 10 night plans depending on your travel window.',
+    'Includes curated architecture, food and neighborhood route suggestions.',
+    'Best for travelers who want a full city break with predictable pricing.',
+  ],
+};
+
+function StarRating() {
+  return (
+    <span className="discount-rating" aria-label="Five star rating">
+      {Array.from({ length: 5 }).map((_, index) => (
+        <FontAwesomeIcon key={index} icon={faStar} />
+      ))}
+    </span>
+  );
+}
 
 function Discounts() {
-  const [activePopup, setActivePopup] = useState(null);
-  const [isTopDealsVisible, setIsTopDealsVisible] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const autoPlayRef = useRef(null);
-  const popupRef = useRef(null);
-  const topDealsRef = useRef(null);
-  const touchStartX = useRef(0);
-  const touchEndX = useRef(0);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [squareDrift, setSquareDrift] = useState(0);
+  const [showLifetimeOffer, setShowLifetimeOffer] = useState(false);
+  const [activeDiscountOffer, setActiveDiscountOffer] = useState(null);
+  const scrollTimerRef = useRef(null);
+  const lastScrollYRef = useRef(0);
 
-  // Función para cambiar de slide
-  const goToSlide = useCallback((index) => {
-    if (isTransitioning) return;
-    
-    setIsTransitioning(true);
-    let newIndex = index;
-    
-    if (index < 0) {
-      newIndex = specialOffers.length - 1;
-    } else if (index >= specialOffers.length) {
-      newIndex = 0;
-    }
-    
-    setCurrentSlide(newIndex);
-    
-    setTimeout(() => {
-      setIsTransitioning(false);
-    }, 500);
-  }, [isTransitioning]);
-
-  const nextSlide = useCallback(() => {
-    goToSlide(currentSlide + 1);
-  }, [currentSlide, goToSlide]);
-
-  const prevSlide = useCallback(() => {
-    goToSlide(currentSlide - 1);
-  }, [currentSlide, goToSlide]);
-
-  // Auto-play
   useEffect(() => {
-    if (isAutoPlaying) {
-      autoPlayRef.current = setInterval(() => {
-        nextSlide();
-      }, 5000);
-    }
-    
-    return () => {
-      if (autoPlayRef.current) {
-        clearInterval(autoPlayRef.current);
+    lastScrollYRef.current = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrollDelta = currentScrollY - lastScrollYRef.current;
+      lastScrollYRef.current = currentScrollY;
+
+      setIsScrolling(true);
+      setSquareDrift((currentDrift) => {
+        const nextDrift = currentDrift + scrollDelta * 0.16;
+        return Math.max(-90, Math.min(260, Math.round(nextDrift)));
+      });
+
+      if (scrollTimerRef.current) {
+        window.clearTimeout(scrollTimerRef.current);
       }
+
+      scrollTimerRef.current = window.setTimeout(() => {
+        setIsScrolling(false);
+      }, 220);
     };
-  }, [isAutoPlaying, nextSlide]);
 
-  // Pausar auto-play cuando el usuario interactúa
-  const handleUserInteraction = () => {
-    setIsAutoPlaying(false);
-    // Reiniciar auto-play después de 10 segundos de inactividad
-    setTimeout(() => {
-      setIsAutoPlaying(true);
-    }, 10000);
-  };
-
-  // Touch events para swipe en móvil
-  const handleTouchStart = (e) => {
-    touchStartX.current = e.touches[0].clientX;
-    handleUserInteraction();
-  };
-
-  const handleTouchMove = (e) => {
-    touchEndX.current = e.touches[0].clientX;
-  };
-
-  const handleTouchEnd = () => {
-    if (touchStartX.current - touchEndX.current > 50) {
-      nextSlide();
-    }
-    
-    if (touchStartX.current - touchEndX.current < -50) {
-      prevSlide();
-    }
-  };
-
-  // Intersection Observer para activar el efecto backdrop en Top Deals
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsTopDealsVisible(true);
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    if (topDealsRef.current) {
-      observer.observe(topDealsRef.current);
-    }
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
-      if (topDealsRef.current) {
-        observer.unobserve(topDealsRef.current);
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimerRef.current) {
+        window.clearTimeout(scrollTimerRef.current);
       }
     };
   }, []);
-
-  useEffect(() => {
-    const handlePointerDown = (event) => {
-      if (popupRef.current && !popupRef.current.contains(event.target)) {
-        setActivePopup(null);
-      }
-    };
-
-    const handleEscape = (event) => {
-      if (event.key === 'Escape') {
-        setActivePopup(null);
-      }
-    };
-
-    window.addEventListener('mousedown', handlePointerDown);
-    window.addEventListener('keydown', handleEscape);
-
-    return () => {
-      window.removeEventListener('mousedown', handlePointerDown);
-      window.removeEventListener('keydown', handleEscape);
-    };
-  }, []);
-
-  const openPopup = (event, item, category) => {
-    const popupWidth = 320;
-    const popupHeight = 240;
-    const padding = 18;
-    const left = Math.min(
-      Math.max(event.clientX + 18, padding),
-      window.innerWidth - popupWidth - padding,
-    );
-    const top = Math.min(
-      Math.max(event.clientY - 26, padding + 90),
-      window.innerHeight - popupHeight - padding,
-    );
-
-    setActivePopup({
-      ...item,
-      category,
-      left,
-      top,
-    });
-  };
 
   return (
     <div className="discounts-page">
-      <Navbar activeLabel="Discounts" />
-
       <section className="discounts-hero" style={{ backgroundImage: `url(${Salar})` }}>
         <div className="discounts-hero-overlay">
           <div className="discounts-hero-copy">
@@ -257,185 +183,257 @@ function Discounts() {
         </div>
       </section>
 
-      <main className="discounts-content">
-        <div className="discounts-intro">
-          <h2>Exclusive Discounts</h2>
+      <main
+        className={`discounts-content ${isScrolling ? 'is-scrolling' : 'is-idle'}`}
+        style={{ '--discount-square-drift': `${squareDrift}px` }}
+      >
+        <div className="discounts-square-field" aria-hidden="true">
+          {Array.from({ length: 18 }).map((_, index) => (
+            <span key={index} />
+          ))}
         </div>
 
-        <section className="special-offers-section">
-          <div className="special-offers-header">
-            <h3>Special Offers</h3>
-            <div className="carousel-controls">
-              <button 
-                className="carousel-btn pause-btn"
-                onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-                aria-label={isAutoPlaying ? 'Pause' : 'Play'}
-              >
-                <FontAwesomeIcon icon={isAutoPlaying ? faPause : faPlay} />
-              </button>
-              <button 
-                className="carousel-btn"
-                onClick={() => { prevSlide(); handleUserInteraction(); }}
-                aria-label="Previous slide"
-              >
-                <FontAwesomeIcon icon={faChevronLeft} />
-              </button>
-              <button 
-                className="carousel-btn"
-                onClick={() => { nextSlide(); handleUserInteraction(); }}
-                aria-label="Next slide"
-              >
-                <FontAwesomeIcon icon={faChevronRight} />
-              </button>
-            </div>
-          </div>
+        <section className="discounts-week">
+          <h2>Great Discounts for this Week</h2>
 
-          <div 
-            className="special-offers-carousel"
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-          >
-            <div 
-              className="special-offers-track"
-              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+          <div className="discounts-feature-layout">
+            <article
+              className="discounts-madrid-card discount-clickable"
+              role="button"
+              tabIndex={0}
+              onClick={() => setActiveDiscountOffer(madridOffer)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  setActiveDiscountOffer(madridOffer);
+                }
+              }}
             >
-              {specialOffers.map((offer, index) => (
-                <button
-                  key={offer.id}
-                  type="button"
-                  className={`special-offer-card special-offer-card-${offer.theme} ${index === currentSlide ? 'active' : ''}`}
-                  onClick={(event) => openPopup(event, offer, 'Special offer')}
-                >
-                  <img src={offer.image} alt={offer.title} />
-                  <div className="special-offer-overlay">
-                    {offer.id === 'special-1' ? (
-                      <div className="special-offer-copy special-offer-copy-left">
-                        <span className="special-offer-eyebrow">{offer.eyebrow}</span>
-                        <strong className="special-offer-main-off">{offer.label}</strong>
-                        <span className="special-offer-caption">{offer.caption}</span>
-                      </div>
-                    ) : null}
-
-                    {offer.id === 'special-2' ? (
-                      <div className="special-offer-copy special-offer-copy-center">
-                        <span className="special-offer-eyebrow">{offer.eyebrow}</span>
-                        <strong className="special-offer-heading">{offer.caption}</strong>
-                      </div>
-                    ) : null}
-
-                    {offer.id === 'special-3' ? (
-                      <div className="special-offer-copy special-offer-copy-right">
-                        <strong className="special-offer-heading">{offer.eyebrow}</strong>
-                      </div>
-                    ) : null}
+              <img src={TopDeals3} alt="Vacation in Madrid" />
+              <div className="madrid-panel">
+                <h3>Vacation in Madrid</h3>
+                <div className="madrid-countdown" aria-label="Madrid vacation countdown">
+                  <div>
+                    <strong>5</strong>
+                    <span>Nights</span>
+                    <small>$ 138</small>
                   </div>
-                </button>
-              ))}
-            </div>
+                  <div>
+                    <strong>8</strong>
+                    <span>Nights</span>
+                    <small>$ 150</small>
+                  </div>
+                  <div>
+                    <strong>10</strong>
+                    <span>Nights</span>
+                    <small>$ 230</small>
+                  </div>
+                </div>
+              </div>
+            </article>
 
-            {/* Indicadores de slide */}
-            <div className="carousel-dots">
-              {specialOffers.map((_, index) => (
-                <button
-                  key={index}
-                  className={`carousel-dot ${index === currentSlide ? 'active' : ''}`}
-                  onClick={() => { goToSlide(index); handleUserInteraction(); }}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
+            <aside className="discounts-side-promos" aria-label="Weekly discount banners">
+              {sidePromos.map((promo) => (
+                <article
+                  key={promo.id}
+                  className={`discount-side-promo discount-clickable ${promo.className}`}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setActiveDiscountOffer(promo)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      setActiveDiscountOffer(promo);
+                    }
+                  }}
+                >
+                  <img src={promo.image} alt="" aria-hidden="true" />
+                  <div className="discount-side-copy">
+                    {promo.badge ? <span className="promo-badge">{promo.badge}</span> : null}
+                    {promo.eyebrow ? <span className="promo-eyebrow">{promo.eyebrow}</span> : null}
+                    <h3>{promo.title}</h3>
+                    {promo.caption ? <p>{promo.caption}</p> : null}
+                  </div>
+                </article>
               ))}
-            </div>
+            </aside>
           </div>
         </section>
 
-        <section 
-          className="top-deals-section" 
-          ref={topDealsRef}
-        >
-          <h3>Top Deals Worldwide</h3>
-
-          <div className={`top-deals-scene ${isTopDealsVisible ? 'visible' : ''}`}>
-            <div className="texture-block texture-block-primary">
-              <img src={BackgroundDiscounts3} alt="" aria-hidden="true" />
-            </div>
-
-            <div className="top-deals-grid top-deals-grid-featured">
-              {topDeals.slice(0, 2).map((deal) => (
+        <section className="discounts-destinations" aria-label="Discount destinations">
+          {discountCards.map((card) => (
+            <article
+              key={card.id}
+              className="discount-destination-card discount-clickable"
+              role="button"
+              tabIndex={0}
+              onClick={() => setActiveDiscountOffer(card)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  setActiveDiscountOffer(card);
+                }
+              }}
+            >
+              <div className="destination-image">
+                <img src={card.image} alt={card.title} />
                 <button
-                  key={deal.id}
                   type="button"
-                  className="deal-card"
-                  onClick={(event) => openPopup(event, deal, 'Top deal')}
+                  className="destination-heart"
+                  aria-label={`Save ${card.title}`}
+                  onClick={(event) => event.stopPropagation()}
                 >
-                  <div className="deal-card-image">
-                    <img src={deal.image} alt={deal.title} />
-                  </div>
-                  <div className="deal-badge">
-                    <span>UPTO</span>
-                    <strong>{deal.discount}</strong>
-                    <span>OFF</span>
-                  </div>
-                  <div className="deal-card-body">
-                    <h4>{deal.title}</h4>
-                  </div>
+                  <FontAwesomeIcon icon={faHeart} />
                 </button>
-              ))}
-            </div>
+              </div>
+              <div className="destination-meta">
+                <div className="destination-main">
+                  <StarRating />
+                  <div className="destination-title-row">
+                    <h3>{card.title}</h3>
+                    <FontAwesomeIcon icon={faBookmark} />
+                  </div>
+                  <strong>{card.price}</strong>
+                  <span>{card.oldPrice}</span>
+                </div>
+                <div className="destination-discount">
+                  <span>UPTO</span>
+                  <strong>{card.discount}</strong>
+                  <span>OFF</span>
+                </div>
+              </div>
+            </article>
+          ))}
+        </section>
 
-            <div className="top-deals-grid top-deals-grid-secondary">
-              {topDeals.slice(2).map((deal) => (
-                <button
-                  key={deal.id}
-                  type="button"
-                  className="deal-card"
-                  onClick={(event) => openPopup(event, deal, 'Top deal')}
-                >
-                  <div className="deal-card-image">
-                    <img src={deal.image} alt={deal.title} />
-                  </div>
-                  <div className="deal-badge">
-                    <span>UPTO</span>
-                    <strong>{deal.discount}</strong>
-                    <span>OFF</span>
-                  </div>
-                  <div className="deal-card-body">
-                    <h4>{deal.title}</h4>
-                  </div>
-                </button>
-              ))}
-            </div>
+        <section className="discounts-bottom-collage" aria-label="Travel discount background">
+          <img className="discounts-bottom-mountains" src={BackgroundDiscounts1} alt="" aria-hidden="true" />
+          <img className="discounts-bottom-sky" src={BackgroundDiscounts3} alt="" aria-hidden="true" />
+          <img className="discounts-bottom-person" src={BackgroundDiscounts2} alt="" aria-hidden="true" />
 
-            <div className="discounts-collage" aria-hidden="true">
-              <div className="collage-color-wash" />
-              <img className="collage-bg collage-bg-left" src={BackgroundDiscounts1} alt="" />
-              <img className="collage-bg collage-bg-center" src={BackgroundDiscounts3} alt="" />
-              <img className="collage-person" src={BackgroundDiscounts2} alt="" />
-              <FontAwesomeIcon icon={faPlaneDeparture} className="collage-plane" />
-            </div>
-          </div>
+          <button
+            type="button"
+            className="lifetime-offer-card"
+            onClick={() => setShowLifetimeOffer(true)}
+          >
+            <span>All in one package</span>
+            <h2>Once in a lifetime offer</h2>
+            <p>
+              Flights, hotel nights, guided routes and private transfers in one curated premium bundle.
+            </p>
+            <strong>Explore offer</strong>
+          </button>
         </section>
       </main>
 
-      {activePopup ? (
+      <Footer />
+
+      {showLifetimeOffer ? (
         <div
-          ref={popupRef}
-          className="discount-popup"
-          style={{ left: activePopup.left, top: activePopup.top }}
+          className="lifetime-offer-backdrop"
           role="dialog"
-          aria-modal="false"
-          aria-label={`${activePopup.category} details`}
+          aria-modal="true"
+          aria-labelledby="lifetime-offer-title"
+          onClick={() => setShowLifetimeOffer(false)}
         >
-          <button
-            type="button"
-            className="discount-popup-close"
-            onClick={() => setActivePopup(null)}
-            aria-label="Close details"
+          <article
+            className="lifetime-offer-modal"
+            onClick={(event) => event.stopPropagation()}
           >
-            <FontAwesomeIcon icon={faXmark} />
-          </button>
-          <span className="discount-popup-tag">{activePopup.category}</span>
-          <h4>{activePopup.title}</h4>
-          <p>{activePopup.details}</p>
+            <button
+              type="button"
+              className="lifetime-offer-close"
+              onClick={() => setShowLifetimeOffer(false)}
+              aria-label="Close offer details"
+            >
+              x
+            </button>
+            <div className="lifetime-offer-media">
+              <img src={SingaporeAirport} alt="Singapore Airport indoor waterfall and garden" />
+              <div className="lifetime-offer-media-copy">
+                <span>Singapore gateway included</span>
+                <strong>All in one</strong>
+              </div>
+            </div>
+
+            <div className="lifetime-offer-details">
+              <span>Limited all in one bundle</span>
+              <h2 id="lifetime-offer-title">Once in a lifetime offer</h2>
+              <p>
+                A complete FlyVelers package designed for travelers who want one booking to cover the
+                entire experience: international flights, selected hotel nights, airport transfers,
+                daily breakfast, landmark tickets and guided local activities.
+              </p>
+              <div className="lifetime-offer-benefits">
+                <div>
+                  <strong>Flights</strong>
+                  <span>Round-trip routes with flexible departure windows.</span>
+                </div>
+                <div>
+                  <strong>Stay</strong>
+                  <span>Premium hotel nights with breakfast included.</span>
+                </div>
+                <div>
+                  <strong>Transfers</strong>
+                  <span>Private airport pickup and curated city mobility.</span>
+                </div>
+                <div>
+                  <strong>Access</strong>
+                  <span>Priority entries to selected attractions and experiences.</span>
+                </div>
+              </div>
+              <button type="button" onClick={() => setShowLifetimeOffer(false)}>
+                Continue exploring
+              </button>
+            </div>
+          </article>
+        </div>
+      ) : null}
+
+      {activeDiscountOffer ? (
+        <div
+          className="discount-detail-backdrop"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="discount-detail-title"
+          onClick={() => setActiveDiscountOffer(null)}
+        >
+          <article
+            className="discount-detail-modal"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="discount-detail-close"
+              onClick={() => setActiveDiscountOffer(null)}
+              aria-label="Close discount details"
+            >
+              x
+            </button>
+            <div className="discount-detail-image">
+              <img src={activeDiscountOffer.image} alt={activeDiscountOffer.title} />
+              {activeDiscountOffer.discount ? (
+                <span>{activeDiscountOffer.discount} offer</span>
+              ) : null}
+            </div>
+            <div className="discount-detail-content">
+              <span>Great discounts for this week</span>
+              <h2 id="discount-detail-title">{activeDiscountOffer.title}</h2>
+              <p>{activeDiscountOffer.summary}</p>
+              <ul>
+                {activeDiscountOffer.details.map((detail) => (
+                  <li key={detail}>{detail}</li>
+                ))}
+              </ul>
+              <div className="discount-detail-meta">
+                {activeDiscountOffer.price ? <strong>{activeDiscountOffer.price}</strong> : null}
+                {activeDiscountOffer.oldPrice ? <span>Now {activeDiscountOffer.oldPrice}</span> : null}
+              </div>
+              <button type="button" onClick={() => setActiveDiscountOffer(null)}>
+                Continue exploring
+              </button>
+            </div>
+          </article>
         </div>
       ) : null}
     </div>

@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import "./services.css";
-import Navbar from "../../components/navbar.jsx";
 import Footer from "../../components/footer.jsx";
 import auroras from "../../assets/auroras.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -86,33 +85,10 @@ const servicePlans = [
 
 const Services = () => {
   const [activePlan, setActivePlan] = useState(null);
-  const [hideNavbar, setHideNavbar] = useState(false);
-  const plansSectionRef = useRef(null);
 
   const togglePlan = (planId) => {
     setActivePlan((currentPlan) => (currentPlan === planId ? null : planId));
   };
-
-  useEffect(() => {
-    const plansSection = plansSectionRef.current;
-
-    if (!plansSection) {
-      return undefined;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setHideNavbar(entry.isIntersecting);
-      },
-      {
-        threshold: 0.18,
-      }
-    );
-
-    observer.observe(plansSection);
-
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <div className="services-container">
@@ -120,8 +96,6 @@ const Services = () => {
         className="services-hero"
         style={{ backgroundImage: `url(${auroras})` }}
       >
-        <Navbar hidden={hideNavbar} />
-
         <div className="hero-overlay">
           <div className="services-hero-intro">
             <span className="services-hero-chip">Travel services</span>
@@ -140,7 +114,7 @@ const Services = () => {
         </div>
       </section>
 
-      <section ref={plansSectionRef} className="services-section">
+      <section className="services-section">
         <div className="bg-shape1"></div>
         <div className="services-section-intro">
           <span className="services-section-chip">See below our subscription plans</span>

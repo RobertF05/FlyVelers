@@ -34,18 +34,18 @@
   content: "";
   position: absolute;
   right: 0;
-  bottom: -42px;
+  bottom: -44px;
   left: 0;
   z-index: 0;
-  height: clamp(88px, 10vw, 136px);
+  height: clamp(92px, 9vw, 124px);
   background-image: url("../../assets/contact-divider-ai-cropped.png");
   background-repeat: no-repeat;
-  background-position: center 54%;
+  background-position: center 40%;
   background-size: cover;
   pointer-events: none;
   opacity: 0.98;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 78%, transparent 100%);
-  mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 78%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 8%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 8%, #000 82%, transparent 100%);
 }
 
 .titles {
@@ -557,9 +557,9 @@
   }
 
   .Encabezado::after {
-    bottom: -30px;
+    bottom: -34px;
     height: 92px;
-    background-position: center 56%;
+    background-position: center 40%;
   }
 
   .titles {
@@ -626,7 +626,7 @@
   }
 
   .Encabezado::after {
-    bottom: -24px;
+    bottom: -28px;
     height: 76px;
   }
 

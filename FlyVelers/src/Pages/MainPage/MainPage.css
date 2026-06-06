@@ -298,6 +298,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.34);
   backdrop-filter: blur(12px);
   box-shadow: 0 34px 90px rgba(7, 32, 54, 0.16);
+  touch-action: pan-y;
 }
 
 .carousel-track {
@@ -982,21 +983,7 @@ body {
   }
 
   .carousel-arrow {
-    position: absolute;
-    top: 50%;
-    z-index: 2;
-    transform: translateY(-50%);
-    width: 42px;
-    height: 42px;
-    background: rgba(15, 23, 42, 0.8);
-  }
-
-  .carousel-arrow.left {
-    left: 10px;
-  }
-
-  .carousel-arrow.right {
-    right: 10px;
+    display: none;
   }
 
   .cta-content {
