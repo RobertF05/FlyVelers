@@ -328,7 +328,11 @@
   width: 64%;
   color: #ffffff;
 }
-
+.discount-side-promo-blue .discount-side-copy {
+  width: 64%;
+  color: #ffffff;
+  padding-top: 40px; 
+}
 .discount-side-promo-blue {
   background: #3158f2;
 }
@@ -916,7 +920,13 @@
   font-weight: 900;
   cursor: pointer;
 }
+.discounts-line-script {
+  animation: revealText 1.2s cubic-bezier(.22,1,.36,1) forwards;
+}
 
+.discounts-line-bold {
+  animation: revealText 1.2s cubic-bezier(.22,1,.36,1) 0.3s forwards;
+}
 @media (max-width: 960px) {
   .discounts-hero {
     min-height: 360px;
@@ -1104,5 +1114,18 @@
   }
   50% {
     transform: translate3d(var(--square-x), calc(var(--discount-square-drift) + var(--square-float-y)), 0) rotate(calc(var(--square-rotate, 0deg) + var(--square-spin))) scale(var(--square-scale));
+  }
+}
+@keyframes revealText {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+    letter-spacing: 4px;
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    letter-spacing: normal;
   }
 }
