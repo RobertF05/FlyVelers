@@ -206,6 +206,7 @@ const MainPage = () => {
   const [isFeaturedDetailOpen, setIsFeaturedDetailOpen] = useState(false);
   const [isMobileFeaturedView, setIsMobileFeaturedView] = useState(false);
   const ctaRef = useRef(null);
+  const featuredPanelHeadingRef = useRef(null);
   const carouselTouchStartXRef = useRef(null);
   const [showCTA, setShowCTA] = useState(false);
 
@@ -283,6 +284,15 @@ const MainPage = () => {
     setCurrentSlide((prev) => (prev + 1) % attractions.length);
   };
 
+  const scrollToFeaturedHeading = () => {
+    window.requestAnimationFrame(() => {
+      featuredPanelHeadingRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
+  };
+
   const handleCarouselTouchStart = (event) => {
     carouselTouchStartXRef.current = event.touches[0].clientX;
   };
@@ -318,6 +328,9 @@ const MainPage = () => {
     setSelectedFeaturedIndex(nextIndex >= 0 ? nextIndex : 0);
     setIsFeaturedOpen(true);
     setIsFeaturedDetailOpen(isMobileFeaturedView && directToDetail);
+    if (directToDetail) {
+      scrollToFeaturedHeading();
+    }
   };
 
   const handleFeaturedSelection = (index) => {
@@ -325,6 +338,7 @@ const MainPage = () => {
     if (isMobileFeaturedView) {
       setIsFeaturedDetailOpen(true);
     }
+    scrollToFeaturedHeading();
   };
 
   return (
@@ -576,7 +590,9 @@ const MainPage = () => {
                       <span className="featured-panel-badge">
                         {selectedFeaturedAttraction.country}
                       </span>
-                      <h3>{selectedFeaturedAttraction.title}</h3>
+                      <h3 ref={featuredPanelHeadingRef}>
+                        {selectedFeaturedAttraction.title}
+                      </h3>
                       <p>{selectedFeaturedAttraction.location}</p>
                     </div>
                   </div>
@@ -637,7 +653,9 @@ const MainPage = () => {
                   <span className="featured-panel-badge">
                     {selectedFeaturedAttraction.country}
                   </span>
-                  <h3 id="featured-detail-title">{selectedFeaturedAttraction.title}</h3>
+                  <h3 id="featured-detail-title" ref={featuredPanelHeadingRef}>
+                    {selectedFeaturedAttraction.title}
+                  </h3>
                   <p>{selectedFeaturedAttraction.location}</p>
                 </div>
               </div>
