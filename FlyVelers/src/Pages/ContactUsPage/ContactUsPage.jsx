@@ -97,14 +97,26 @@ ${formData.question}
       const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
       window.open(url, "_blank");
-
+      resetform();
       return;
     }
 
     /* mostrar login */
     setShowLogin(true);
   };
-
+  const resetform = () => {
+    setFormData({
+      name: "",
+      phone: "",
+      email: "",
+      plan: "Basic",
+      startDate: "",
+      endDate: "",
+      question: "",
+    });
+    setStartDate(null);
+    setEndDate(null);
+  };
   const handleSuccessfulLogin = () => {
     setIsAuthenticated(true);
 
@@ -175,9 +187,8 @@ ${formData.question}
             <div className="form-toggle">
               <button
                 type="button"
-                className={`toggle-btn ${
-                  activeForm === "request" ? "active" : ""
-                }`}
+                className={`toggle-btn ${activeForm === "request" ? "active" : ""
+                  }`}
                 onClick={() => setActiveForm("request")}
               >
                 Request Information
@@ -185,9 +196,8 @@ ${formData.question}
 
               <button
                 type="button"
-                className={`toggle-btn ${
-                  activeForm === "questions" ? "active" : ""
-                }`}
+                className={`toggle-btn ${activeForm === "questions" ? "active" : ""
+                  }`}
                 onClick={() => setActiveForm("questions")}
               >
                 Questions?
@@ -345,7 +355,11 @@ ${formData.question}
       {showLogin && (
         <Login
           onSuccess={handleSuccessfulLogin}
-          onClose={() => setShowLogin(false)}
+          onClose={() => {
+            setShowLogin(false);
+            resetForm();
+            setPendingMessage("");
+          }}
         />
       )}
     </div>
