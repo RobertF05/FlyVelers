@@ -75,8 +75,8 @@ const discountCards = [
     id: 'egypt',
     title: 'Egypt',
     image: TopDeals5,
-    price: '$ 1,125',
-    oldPrice: '$ 900',
+    price: '$ 900',
+    oldPrice: '$ 1,125',
     discount: '20%',
     summary: 'Desert views, warm-weather stays and curated cultural stops in one compact escape.',
     details: ['Desert route planning', 'Hotel options near key viewpoints', 'Optional guided day trips'],
@@ -85,8 +85,8 @@ const discountCards = [
     id: 'cancun',
     title: 'Paris',
     image: ParisDiscountEnhanced,
-    price: '$ 500',
-    oldPrice: '$ 300',
+    price: '$ 300',
+    oldPrice: '$ 500',
     discount: '40%',
     summary: 'A Paris city break with landmark views, boutique stays and cultural route planning.',
     details: ['Eiffel Tower route highlights', 'Central lodging options', 'Museum and cafe recommendations'],
@@ -95,8 +95,8 @@ const discountCards = [
     id: 'aruba',
     title: 'Maldives',
     image: TravelRoutes4,
-    price: '$ 2,000',
-    oldPrice: '$ 1,400',
+    price: '$ 1,400',
+    oldPrice: '$ 2,000',
     discount: '30%',
     summary: 'A Maldives island stay built around lagoon views, relaxation and resort convenience.',
     details: ['Resort-focused itinerary', 'Lagoon and beach access', 'Optional transfer support'],
@@ -105,8 +105,8 @@ const discountCards = [
     id: 'baja',
     title: 'New York',
     image: TopDeals4,
-    price: '$ 900',
-    oldPrice: '$ 810',
+    price: '$ 810',
+    oldPrice: '$ 900',
     discount: '10%',
     summary: 'A New York waterfront route with skyline views, city access and short-stay value.',
     details: ['Liberty and skyline viewpoints', 'Urban hotel options', 'Short-stay route planning'],
@@ -132,7 +132,8 @@ const lifetimeCartOffer = {
   id: 'lifetime-offer',
   title: 'Once in a lifetime offer',
   image: SingaporeAirport,
-  price: 'Custom package',
+  price: '$ 4,500',
+  oldPrice: '$ 6,200',
   summary:
     'Flights, hotel nights, guided routes and private transfers in one curated premium bundle.',
 };
@@ -329,8 +330,8 @@ function Discounts() {
                     <h3>{card.title}</h3>
                     <FontAwesomeIcon icon={faBookmark} />
                   </div>
-                  <strong>{card.price}</strong>
-                  <span>{card.oldPrice}</span>
+                  <strong>{card.oldPrice}</strong>
+                  <span>{card.price}</span>
                 </div>
                 <div className="destination-discount">
                   <span>UPTO</span>
@@ -400,6 +401,10 @@ function Discounts() {
                 entire experience: international flights, selected hotel nights, airport transfers,
                 daily breakfast, landmark tickets and guided local activities.
               </p>
+              <div className="lifetime-offer-price">
+                <strong>{lifetimeCartOffer.price}</strong>
+                <span>Before {lifetimeCartOffer.oldPrice}</span>
+              </div>
               <div className="lifetime-offer-benefits">
                 <div>
                   <strong>Flights</strong>
@@ -468,7 +473,7 @@ function Discounts() {
               </ul>
               <div className="discount-detail-meta">
                 {activeDiscountOffer.price ? <strong>{activeDiscountOffer.price}</strong> : null}
-                {activeDiscountOffer.oldPrice ? <span>Now {activeDiscountOffer.oldPrice}</span> : null}
+                {activeDiscountOffer.oldPrice ? <span>Before {activeDiscountOffer.oldPrice}</span> : null}
               </div>
               {activeDiscountOffer.purchasable === false ? null : (
                 <button
