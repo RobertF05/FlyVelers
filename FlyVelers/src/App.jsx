@@ -10,6 +10,8 @@ import Reviews from './Pages/Reviews/Reviews.jsx';
 import Blog from './Pages/Blog/blog.jsx';
 import Discounts from './Pages/Discounts/Disconunts.jsx';
 import RoutesPage from './Pages/Routes/Routes.jsx';
+import Profile from './Pages/Profile/Profile.jsx';
+import { CartProvider } from './context/CartContext.jsx';
 
 import './App.css';
 
@@ -30,6 +32,7 @@ function AppRoutes() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/discounts" element={<Discounts />} />
         <Route path="/routes" element={<RoutesPage />} />
+        <Route path="/profile" element={<Profile />} />
         
         {/* ruta temporal */}
         <Route path="/login" element={<Login />} />
@@ -42,7 +45,9 @@ function AppRoutes() {
 function App() {
   return (
     <Router>
-      <AppRoutes />
+      <CartProvider>
+        <AppRoutes />
+      </CartProvider>
     </Router>
   );
 }

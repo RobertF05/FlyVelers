@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./services.css";
 import Footer from "../../components/footer.jsx";
 import auroras from "../../assets/auroras.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { useCart } from "../../context/CartContext.jsx";
 
 const servicePlans = [
   {
@@ -83,11 +85,77 @@ const servicePlans = [
   },
 ];
 
+const planRank = {
+  basic: 1,
+  standard: 2,
+  premium: 3,
+};
+
 const Services = () => {
+  const navigate = useNavigate();
+  const {
+    addPurchaseRecord,
+    isAuthenticated,
+    setSubscriptionPlan,
+    subscriptionPlan,
+  } = useCart();
   const [activePlan, setActivePlan] = useState(null);
+  const [checkoutPlan, setCheckoutPlan] = useState(null);
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
 
   const togglePlan = (planId) => {
     setActivePlan((currentPlan) => (currentPlan === planId ? null : planId));
+  };
+
+  const getPlanActionLabel = (plan) => {
+    if (subscriptionPlan === plan.id) {
+      return "Current plan";
+    }
+
+    if (!subscriptionPlan) {
+      return `Buy ${plan.title}`;
+    }
+
+    return planRank[plan.id] < planRank[subscriptionPlan]
+      ? `Downgrade to ${plan.title}`
+      : `Upgrade to ${plan.title}`;
+  };
+
+  const handlePlanPurchase = (event, plan) => {
+    event.stopPropagation();
+
+    if (!isAuthenticated()) {
+      navigate("/login");
+      return;
+    }
+
+    setCheckoutPlan(plan);
+  };
+
+  const handleSubscriptionCheckout = (event) => {
+    event.preventDefault();
+    addPurchaseRecord({
+      type: "subscription",
+      title: checkoutPlan.title,
+      total: checkoutPlan.price,
+      planId: checkoutPlan.id,
+      items: [
+        {
+          id: checkoutPlan.id,
+          title: checkoutPlan.title,
+          price: checkoutPlan.price,
+          quantity: 1,
+          summary: checkoutPlan.per,
+        },
+      ],
+    });
+    setSubscriptionPlan(checkoutPlan.id);
+    setPaymentSuccess(true);
+
+    setTimeout(() => {
+      setCheckoutPlan(null);
+      setPaymentSuccess(false);
+    }, 1200);
   };
 
   return (
@@ -124,11 +192,14 @@ const Services = () => {
         <div className="cards-wrapper">
           {servicePlans.map((plan) => {
             const isActive = activePlan === plan.id;
+            const isCurrentPlan = subscriptionPlan === plan.id;
 
             return (
               <article
                 key={plan.id}
-                className={`service-card ${plan.cardClass} ${isActive ? "is-active" : ""}`}
+                className={`service-card ${plan.cardClass} ${isActive ? "is-active" : ""} ${
+                  isCurrentPlan ? "has-current-plan" : ""
+                }`}
                 role="button"
                 tabIndex={0}
                 aria-expanded={isActive}
@@ -141,6 +212,7 @@ const Services = () => {
                 }}
               >
                 <div className="service-card-main">
+                  {isCurrentPlan ? <span className="current-plan-badge">Current plan</span> : null}
                   <div className={plan.iconWrapClass}>
                     <div className={plan.iconClass}>
                       <FontAwesomeIcon icon={faCheck} className="icon-check" />
@@ -158,6 +230,15 @@ const Services = () => {
                       <li key={service}>{service}</li>
                     ))}
                   </ul>
+                  <button
+                    type="button"
+                    className="plan-purchase-btn"
+                    disabled={isCurrentPlan}
+                    onClick={(event) => handlePlanPurchase(event, plan)}
+                    onKeyDown={(event) => event.stopPropagation()}
+                  >
+                    {getPlanActionLabel(plan)}
+                  </button>
                 </div>
 
                 <div className="subscription-details" aria-hidden={!isActive}>
@@ -182,6 +263,71 @@ const Services = () => {
         </div>
       </section>
       <Footer />
+
+      {checkoutPlan ? (
+        <div
+          className="service-payment-backdrop"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="service-payment-title"
+          onClick={() => setCheckoutPlan(null)}
+        >
+          <form
+            className="service-payment-modal"
+            onSubmit={handleSubscriptionCheckout}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="service-payment-close"
+              onClick={() => setCheckoutPlan(null)}
+              aria-label="Close payment form"
+            >
+              x
+            </button>
+            <span>Subscription checkout</span>
+            <h2 id="service-payment-title">{checkoutPlan.title}</h2>
+            <p>{checkoutPlan.price} - payment details are only used for this demo and are not saved.</p>
+
+            <div className="service-payment-grid">
+              <label>
+                Cardholder name
+                <input type="text" placeholder="Name on card" required />
+              </label>
+              <label>
+                Card number
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  minLength="13"
+                  maxLength="19"
+                  placeholder="0000 0000 0000 0000"
+                  required
+                />
+              </label>
+              <label>
+                Expiration date
+                <input type="month" required />
+              </label>
+              <label>
+                CVV
+                <input
+                  type="password"
+                  inputMode="numeric"
+                  minLength="3"
+                  maxLength="4"
+                  placeholder="123"
+                  required
+                />
+              </label>
+            </div>
+
+            <button type="submit" className="service-payment-submit">
+              {paymentSuccess ? "Subscription active" : "Confirm subscription"}
+            </button>
+          </form>
+        </div>
+      ) : null}
     </div>
   );
 };

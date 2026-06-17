@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark, faHeart, faStar } from '@fortawesome/free-solid-svg-icons';
 import './Discounts.css';
 import Footer from '../../components/footer.jsx';
+import { useCart } from '../../context/CartContext.jsx';
 
 import Salar from '../../assets/Salar.png';
 import SpecialDiscount1 from '../../assets/SpecialDiscount1.png';
@@ -23,14 +25,16 @@ import SingaporeAirport from '../../assets/SingaporeAirport.jpg';
 const sidePromos = [
   {
     id: 'europe-wow',
-    title: 'Discover The Wow Of Europe',
+    title: 'Discover The Wow Of Greece',
     image: SpecialDiscount1,
     className: 'discount-side-promo-europe',
     badge: '-50% Only This Week',
-    summary: 'A compact Europe route with city stays, landmark visits and weekly promotional pricing.',
+    price: '$ 950',
+    oldPrice: '$ 1,900',
+    summary: 'A compact Greece route with island stays, landmark visits and weekly promotional pricing.',
     details: [
-      'Boutique hotel nights in selected European cities.',
-      'Guided landmark route with cultural stops.',
+      'Boutique hotel nights in Athens and selected Greek island areas.',
+      'Guided Greece landmark route with cultural stops.',
       'Optional airport transfer bundle for faster arrival.',
     ],
   },
@@ -40,6 +44,8 @@ const sidePromos = [
     title: 'Are You Ready For A Tour To Turkey',
     image: SpecialDiscount2,
     className: 'discount-side-promo-blue',
+    price: '$ 720',
+    oldPrice: '$ 3,600',
     summary: 'A scenic Turkey tour focused on warm-air balloon views, local dining and curated lodging.',
     details: [
       'Flexible tour dates with limited weekly seats.',
@@ -54,6 +60,7 @@ const sidePromos = [
     caption: 'only in FlyVelers',
     image: SpecialDiscount3,
     className: 'discount-side-promo-orange',
+    purchasable: false,
     summary: 'Rotating FlyVelers weekly deals across beaches, city breaks and short premium escapes.',
     details: [
       'Fresh weekly destination inventory.',
@@ -121,6 +128,15 @@ const madridOffer = {
   ],
 };
 
+const lifetimeCartOffer = {
+  id: 'lifetime-offer',
+  title: 'Once in a lifetime offer',
+  image: SingaporeAirport,
+  price: 'Custom package',
+  summary:
+    'Flights, hotel nights, guided routes and private transfers in one curated premium bundle.',
+};
+
 function StarRating() {
   return (
     <span className="discount-rating" aria-label="Five star rating">
@@ -132,12 +148,32 @@ function StarRating() {
 }
 
 function Discounts() {
+  const navigate = useNavigate();
+  const { addToCart, cartItems, isAuthenticated } = useCart();
   const [isScrolling, setIsScrolling] = useState(false);
   const [squareDrift, setSquareDrift] = useState(0);
   const [showLifetimeOffer, setShowLifetimeOffer] = useState(false);
   const [activeDiscountOffer, setActiveDiscountOffer] = useState(null);
   const scrollTimerRef = useRef(null);
   const lastScrollYRef = useRef(0);
+
+  const isOfferInCart = (offerId) => cartItems.some((item) => item.id === offerId);
+
+  const handleAddOfferToCart = (offer) => {
+    if (!isAuthenticated()) {
+      navigate('/login');
+      return;
+    }
+
+    addToCart({
+      id: offer.id,
+      title: offer.title,
+      price: offer.price || offer.oldPrice || offer.discount || '',
+      image: offer.image,
+      summary: offer.summary,
+      quantity: 1,
+    });
+  };
 
   useEffect(() => {
     lastScrollYRef.current = window.scrollY;
@@ -382,8 +418,13 @@ function Discounts() {
                   <span>Priority entries to selected attractions and experiences.</span>
                 </div>
               </div>
-              <button type="button" onClick={() => setShowLifetimeOffer(false)}>
-                Continue exploring
+              <button
+                type="button"
+                className="discount-add-cart-btn"
+                disabled={isOfferInCart(lifetimeCartOffer.id)}
+                onClick={() => handleAddOfferToCart(lifetimeCartOffer)}
+              >
+                {isOfferInCart(lifetimeCartOffer.id) ? 'Already in cart' : 'Add to cart'}
               </button>
             </div>
           </article>
@@ -429,9 +470,16 @@ function Discounts() {
                 {activeDiscountOffer.price ? <strong>{activeDiscountOffer.price}</strong> : null}
                 {activeDiscountOffer.oldPrice ? <span>Now {activeDiscountOffer.oldPrice}</span> : null}
               </div>
-              <button type="button" onClick={() => setActiveDiscountOffer(null)}>
-                Continue exploring
-              </button>
+              {activeDiscountOffer.purchasable === false ? null : (
+                <button
+                  type="button"
+                  className="discount-add-cart-btn"
+                  disabled={isOfferInCart(activeDiscountOffer.id)}
+                  onClick={() => handleAddOfferToCart(activeDiscountOffer)}
+                >
+                  {isOfferInCart(activeDiscountOffer.id) ? 'Already in cart' : 'Add to cart'}
+                </button>
+              )}
             </div>
           </article>
         </div>

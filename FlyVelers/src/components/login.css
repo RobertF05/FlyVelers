@@ -65,6 +65,7 @@ body{
   z-index: 2;
 
   width: 430px;
+  max-height: calc(100vh - 32px);
 
   padding: 42px 38px;
 
@@ -88,6 +89,14 @@ body{
   overflow: hidden;
 
   animation: cardShow 0.45s cubic-bezier(.19,1,.22,1);
+}
+
+.login-card.signup-card {
+  width: min(720px, calc(100% - 32px));
+  padding: 34px 38px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,184,77,0.65) rgba(255,255,255,0.08);
 }
 
 /* glow effect */
@@ -155,6 +164,11 @@ body{
   margin: 0 auto 18px;
 }
 
+.signup-card .login-logo {
+  width: 118px;
+  margin-bottom: 10px;
+}
+
 /* =========================
    TEXT
 ========================= */
@@ -182,6 +196,11 @@ body{
   letter-spacing: -1px;
 }
 
+.signup-card .login-title {
+  margin-bottom: 22px;
+  font-size: 42px;
+}
+
 /* =========================
    FORM
 ========================= */
@@ -190,8 +209,23 @@ body{
   width: 100%;
 }
 
+.signup-form {
+  display: grid;
+  gap: 0;
+}
+
+.signup-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
 .input-group{
   margin-bottom: 22px;
+}
+
+.signup-form .input-group {
+  margin-bottom: 16px;
 }
 
 .input-group label{
@@ -262,6 +296,10 @@ body{
   background: rgba(255,255,255,0.08);
 }
 
+.input-group input[type="date"] {
+  color-scheme: dark;
+}
+
 /* =========================
    BUTTON
 ========================= */
@@ -320,12 +358,19 @@ body{
   font-size: 14px;
 }
 
-.signup-text span{
+.signup-text button{
+  border: 0;
+  background: transparent;
   color: #ffb84d;
 
   font-weight: 600;
+  font: inherit;
 
   cursor: pointer;
+}
+
+.signup-text button:hover {
+  opacity: 0.82;
 }
 
 /* =========================
@@ -619,8 +664,22 @@ body{
     border-radius: 24px;
   }
 
+  .login-card.signup-card {
+    width: 92%;
+    padding: 28px 22px;
+  }
+
+  .signup-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
   .login-title{
     font-size: 38px;
+  }
+
+  .signup-card .login-title {
+    font-size: 34px;
   }
 
   .login-logo{

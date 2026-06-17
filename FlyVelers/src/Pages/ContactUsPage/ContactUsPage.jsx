@@ -14,13 +14,17 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import "./ContactUsPage.css";
 
+const AUTH_STORAGE_KEY = "flyvelers-authenticated";
+
 const ContactUsPage = () => {
   /* =========================
      LOGIN STATES
   ========================= */
   const [showLogin, setShowLogin] = useState(false);
   const [pendingMessage, setPendingMessage] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    () => localStorage.getItem(AUTH_STORAGE_KEY) === "true",
+  );
 
   /* =========================
      FORM STATES
@@ -118,6 +122,7 @@ ${formData.question}
     setEndDate(null);
   };
   const handleSuccessfulLogin = () => {
+    localStorage.setItem(AUTH_STORAGE_KEY, "true");
     setIsAuthenticated(true);
 
     setShowLogin(false);
