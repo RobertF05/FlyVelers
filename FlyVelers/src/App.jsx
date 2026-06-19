@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import MainPage from './Pages/MainPage/MainPage.jsx';
 import AboutUsPage from './Pages/AboutUsPage/AboutUsPage.jsx';
@@ -17,10 +18,27 @@ import './App.css';
 
 function AppRoutes() {
   const { pathname } = useLocation();
+  const [hideNavbar, setHideNavbar] = useState(false);
+
+  useEffect(() => {
+    const handleNavbarVisibility = (event) => {
+      setHideNavbar(Boolean(event.detail?.hidden));
+    };
+
+    window.addEventListener('flyvelers-navbar-visibility', handleNavbarVisibility);
+
+    return () => {
+      window.removeEventListener('flyvelers-navbar-visibility', handleNavbarVisibility);
+    };
+  }, []);
+
+  useEffect(() => {
+    setHideNavbar(false);
+  }, [pathname]);
 
   return (
     <>
-      {pathname !== '/login' ? <Navbar /> : null}
+      {pathname !== '/login' && !hideNavbar ? <Navbar /> : null}
 
       <Routes>
         <Route path="/main" element={<MainPage />} />

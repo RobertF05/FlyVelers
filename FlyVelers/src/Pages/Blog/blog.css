@@ -308,7 +308,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 116px 32px 32px;
+  padding: 32px;
   background: rgba(12, 15, 20, 0.62);
   backdrop-filter: blur(12px);
   animation: blogFadeIn 0.28s ease;
@@ -617,11 +617,11 @@
   }
 
   .blog-modal-backdrop {
-    padding: 96px 12px 12px;
+    padding: 24px 12px;
   }
 
   .blog-modal {
-    max-height: 95vh;
+    max-height: calc(100dvh - 48px);
     border-radius: 22px;
   }
 

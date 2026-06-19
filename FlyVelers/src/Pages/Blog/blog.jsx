@@ -240,6 +240,22 @@ function Blog() {
   }, [heroIntroPhase, selectedPost]);
 
   useEffect(() => {
+    window.dispatchEvent(
+      new CustomEvent('flyvelers-navbar-visibility', {
+        detail: { hidden: Boolean(selectedPost) },
+      })
+    );
+
+    return () => {
+      window.dispatchEvent(
+        new CustomEvent('flyvelers-navbar-visibility', {
+          detail: { hidden: false },
+        })
+      );
+    };
+  }, [selectedPost]);
+
+  useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
